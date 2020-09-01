@@ -8,9 +8,16 @@ public class MenuController : MonoBehaviour
     [SerializeField] private Animator canvasAnimator = null;
     [SerializeField] private float sceneTransitionTime = 1f;
 
-    public IEnumerator StartGame()
+
+    public void startGameWrapper()
     {
-        canvasAnimator.SetTrigger("ProceedToLevel");
+        StartCoroutine(StartGame());
+    }
+    private IEnumerator StartGame()
+    {
+        //canvasAnimator.SetTrigger("ProceedToLevel");
+
+        yield return new WaitForSeconds(sceneTransitionTime);
 
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
 

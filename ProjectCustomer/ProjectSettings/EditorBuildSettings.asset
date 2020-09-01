@@ -11,4 +11,13 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/LakeLevel.unity
     guid: 07342401f0ce39e4f84bbc52d42b7fc5
+  - enabled: 1
+    path: Assets/Scenes/RiverLevel.unity
+    guid: 4b82dc49894df074580a1542c9c5fbbd
+  - enabled: 1
+    path: Assets/Scenes/SeaLevel.unity
+    guid: 2e26bf096bd19f446a32e87059ecd19d
+  - enabled: 1
+    path: Assets/Scenes/OceanLevel.unity
+    guid: e5f1117802a02b44d8a7006f9b6b606e
   m_configObjects: {}
