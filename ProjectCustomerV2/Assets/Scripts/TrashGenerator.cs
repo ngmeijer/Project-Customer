@@ -6,11 +6,8 @@ using UnityEngine.AI;
 public class TrashGenerator : MonoBehaviour
 {
     [SerializeField] private List<GameObject> trashPrefabs = new List<GameObject>();
-    [SerializeField] private List<Transform> levelBorders = new List<Transform>();
 
     private TrashGeneratorSettings trashGeneratorSettings = null;
-
-    public float range = 10.0f;
 
     private float trashTimer = 0.0f;
 
@@ -23,7 +20,7 @@ public class TrashGenerator : MonoBehaviour
     {
         trashTimer += Time.deltaTime;
 
-        if(trashTimer > trashGeneratorSettings.trashSpawnRate)
+        if (trashTimer > trashGeneratorSettings.trashSpawnRate)
         {
             generateTrash();
         }
@@ -31,13 +28,12 @@ public class TrashGenerator : MonoBehaviour
 
     private void generateTrash()
     {
-        int randomPrefab = randomTrashPrefab();
+        //int randomPrefab = randomTrashPrefab();
 
         Vector3 point;
-        if (RandomPoint(transform.position, range, out point))
+        if (RandomPoint(transform.position, trashGeneratorSettings.spawnRange, out point))
         {
-            
-            Debug.DrawRay(point, Vector3.up, Color.blue, 1.0f);
+            Debug.DrawRay(point, Vector3.up, Color.blue, trashGeneratorSettings.trashLifeTime);
         }
 
         trashTimer = 0;

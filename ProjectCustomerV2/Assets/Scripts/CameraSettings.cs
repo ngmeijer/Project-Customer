@@ -5,6 +5,8 @@ using UnityEngine;
 public class CameraSettings : MonoBehaviour
 {
     #region Variables
+
+    private Camera cam = null;
     
     [Range(20, 400)]
     public float scrollSpeed = 200f;
@@ -13,6 +15,17 @@ public class CameraSettings : MonoBehaviour
 
     public Vector3 offset;
 
+    public float cameraHeight = 20f;
+
     #endregion
 
+    private void Start()
+    {
+        cam = GetComponent<Camera>();
+    }
+
+    private void Update()
+    {
+        cam.orthographicSize = cameraHeight;
+    }
 }

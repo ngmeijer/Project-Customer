@@ -22,13 +22,11 @@ public class CameraController : MonoBehaviour
         transform.LookAt(player);
 
         handleCameraZoom();
-
-        //transform.position = cameraPosition;
     }
 
     private void handleCameraZoom()
     {
         float scrollValue = Input.GetAxis("Mouse ScrollWheel");
-        cameraSettings.offset.y += scrollValue * -cameraSettings.scrollSpeed * cameraSettings.scrollMultiplier * Time.deltaTime;
+        cameraSettings.cameraHeight += scrollValue * -cameraSettings.scrollSpeed * cameraSettings.scrollMultiplier * Time.deltaTime;
     }
 }
