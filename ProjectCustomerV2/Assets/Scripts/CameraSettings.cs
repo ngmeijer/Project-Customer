@@ -15,7 +15,8 @@ public class CameraSettings : MonoBehaviour
 
     public Vector3 offset;
 
-    public float cameraHeight = 20f;
+    public float cameraHeight = 20;
+    public float maxCameraHeight = 50;
 
     #endregion
 

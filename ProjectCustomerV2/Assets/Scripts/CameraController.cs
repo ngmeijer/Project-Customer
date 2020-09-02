@@ -8,8 +8,6 @@ public class CameraController : MonoBehaviour
 
     [SerializeField] private Transform player = null;
 
-    private Vector3 cameraPosition;
-
     private void Start()
     {
         cameraSettings = GetComponent<CameraSettings>();
@@ -27,6 +25,11 @@ public class CameraController : MonoBehaviour
     private void handleCameraZoom()
     {
         float scrollValue = Input.GetAxis("Mouse ScrollWheel");
-        cameraSettings.cameraHeight += scrollValue * -cameraSettings.scrollSpeed * cameraSettings.scrollMultiplier * Time.deltaTime;
+
+        if (cameraSettings.offset.y < cameraSettings.maxCameraHeight)
+        {
+            cameraSettings.offset.y += scrollValue * -cameraSettings.scrollSpeed * cameraSettings.scrollMultiplier * Time.deltaTime;
+        }
+        else { cameraSettings.offset.y = cameraSettings.maxCameraHeight - 0.5f; }
     }
 }

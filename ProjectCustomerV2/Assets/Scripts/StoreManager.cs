@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class StoreManager : MonoBehaviour
 {
-    private PlayerInventory playerInventory = null;
+    private PlayerUpgrades playerInventory = null;
 
     private void Start()
     {
-        playerInventory = FindObjectOfType<PlayerInventory>();
+        playerInventory = FindObjectOfType<PlayerUpgrades>();
     }
 
     public void buyPaddles()

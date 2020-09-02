@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerInventory : MonoBehaviour
+public class PlayerUpgrades : MonoBehaviour
 {
     public GameObject paddleUpgrade = null;
     public GameObject fishnetUpgrade = null;

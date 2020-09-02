@@ -20,7 +20,7 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButton(0))
         {
             Ray ray = playerCamera.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
@@ -29,6 +29,10 @@ public class PlayerController : MonoBehaviour
             {
                 playerAgent.SetDestination(hit.point);
             }
+        }
+        else
+        {
+            playerAgent.destination = transform.position;
         }
     }
 }

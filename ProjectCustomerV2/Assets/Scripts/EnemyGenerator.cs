@@ -3,18 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class TrashGenerator : MonoBehaviour
+public class EnemyGenerator : MonoBehaviour
 {
-    public static TrashGenerator SharedInstance;
+    public static EnemyGenerator SharedInstance;
 
-
-    [SerializeField] private List<GameObject> trashPrefabs = new List<GameObject>();
+    [SerializeField] private List<GameObject> enemyPrefabs = new List<GameObject>();
     [SerializeField] private List<GameObject> pooledObjects;
     [SerializeField] private int amountToPool = 20;
 
-    private TrashGeneratorSettings trashGeneratorSettings = null;
+    private EnemyGeneratorSettings enemyGeneratorSettings = null;
 
-    private float trashTimer = 0.0f;
+    private float enemySpawnTimer = 0.0f;
 
     void Awake()
     {
@@ -23,14 +22,14 @@ public class TrashGenerator : MonoBehaviour
 
     private void Start()
     {
-        trashGeneratorSettings = GetComponent<TrashGeneratorSettings>();
+        enemyGeneratorSettings = GetComponent<EnemyGeneratorSettings>();
 
         pooledObjects = new List<GameObject>();
 
         for (int i = 0; i < amountToPool; i++)
         {
-            int randomTrash = randomTrashPrefab();
-            GameObject trashInstance = Instantiate(trashPrefabs[randomTrash]);
+            int randomEnemy = chooseRandomEnemy();
+            GameObject trashInstance = Instantiate(enemyPrefabs[randomEnemy]);
             trashInstance.SetActive(false);
             pooledObjects.Add(trashInstance);
         }
@@ -38,9 +37,9 @@ public class TrashGenerator : MonoBehaviour
 
     private void Update()
     {
-        trashTimer += Time.deltaTime;
+        enemySpawnTimer += Time.deltaTime;
 
-        if (trashTimer > trashGeneratorSettings.trashSpawnRate)
+        if (enemySpawnTimer > enemyGeneratorSettings.spawnRate)
         {
             generateTrash();
         }
@@ -60,10 +59,10 @@ public class TrashGenerator : MonoBehaviour
 
     private void generateTrash()
     {
-        int randomPrefab = randomTrashPrefab();
+        int randomPrefab = chooseRandomEnemy();
 
         Vector3 point;
-        if (RandomPoint(transform.position, trashGeneratorSettings.spawnRange, out point))
+        if (RandomPoint(transform.position, enemyGeneratorSettings.spawnRange, out point))
         {
             GameObject trashInstance = GetPooledObject();
             if (trashInstance != null)
@@ -72,15 +71,15 @@ public class TrashGenerator : MonoBehaviour
                 trashInstance.transform.rotation = Quaternion.identity;
                 trashInstance.SetActive(true);
             }
-            Debug.DrawRay(point, Vector3.up, Color.blue, trashGeneratorSettings.trashLifeTime);
+            //Debug.DrawRay(point, Vector3.up, Color.blue, enemyGeneratorSettings.enemy);
         }
 
-        trashTimer = 0;
+        enemySpawnTimer = 0;
     }
 
-    private int randomTrashPrefab()
+    private int chooseRandomEnemy()
     {
-        int randomPrefab = Random.Range(0, trashPrefabs.Count);
+        int randomPrefab = Random.Range(0, enemyPrefabs.Count);
 
         return randomPrefab;
     }
