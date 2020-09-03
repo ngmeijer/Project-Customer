@@ -14,9 +14,11 @@ public class CameraSettings : MonoBehaviour
     public int scrollMultiplier = 5;
 
     public Vector3 offset;
+    public Vector3 rotateValue;
 
     public float cameraHeight = 20;
     public float maxCameraHeight = 50;
+    public float minCameraHeight = 10;
 
     #endregion
 

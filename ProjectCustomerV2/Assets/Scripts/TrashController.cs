@@ -6,21 +6,13 @@ public class TrashController : MonoBehaviour
 {
     [SerializeField] private Material dissolveShader = null;
 
-    private void OnTriggerEnter(Collider other)
+    public IEnumerator handleDeactivation(float pickupTime)
     {
-        if (other.gameObject.CompareTag("Player"))
-        {
-            gameObject.SetActive(false);
-            //StartCoroutine(handleDeactivation());
-        }
-    }
+        //GetComponentInChildren<MeshRenderer>().material = dissolveShader;
 
-    private IEnumerator handleDeactivation()
-    {
-        GetComponentInChildren<MeshRenderer>().material = dissolveShader;
+        yield return new WaitForSeconds(pickupTime);
 
-        yield return new WaitForSeconds(1);
-
+        gameObject.SetActive(false);
 
         yield break;
     }

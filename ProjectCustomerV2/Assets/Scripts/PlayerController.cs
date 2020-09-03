@@ -5,7 +5,7 @@ using UnityEngine.AI;
 
 public class PlayerController : MonoBehaviour
 {
-    private NavMeshAgent playerAgent = null;
+    public NavMeshAgent playerAgent = null;
 
     [SerializeField] private Camera playerCamera = null;
 
@@ -20,7 +20,7 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetMouseButton(0))
+        if (Input.GetMouseButton(0) || Input.GetMouseButtonDown(0))
         {
             Ray ray = playerCamera.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
@@ -30,9 +30,9 @@ public class PlayerController : MonoBehaviour
                 playerAgent.SetDestination(hit.point);
             }
         }
-        else
-        {
-            playerAgent.destination = transform.position;
-        }
+        //else
+        //{
+        //    playerAgent.destination = transform.position;
+        //}
     }
 }

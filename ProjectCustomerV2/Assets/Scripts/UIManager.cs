@@ -12,6 +12,7 @@ public class UIManager : MonoBehaviour
     private PlayerStats playerStats = null;
 
     public TextMeshProUGUI trashCounter = null;
+    public TextMeshProUGUI moneyCounter = null;
 
     [SerializeField] private GameObject storeUI = null;
     [SerializeField] private GameObject storeButton = null;
@@ -58,8 +59,8 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    public void updateStats(TextMeshProUGUI counter)
+    public void updateStats(TextMeshProUGUI counter, int counterAmount)
     {
-        counter.text = playerStats.trashAmount.ToString();
+        counter.text = counterAmount.ToString();
     }
 }

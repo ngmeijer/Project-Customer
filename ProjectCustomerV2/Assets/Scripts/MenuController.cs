@@ -5,9 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class MenuController : MonoBehaviour
 {
-    [SerializeField] private Animator canvasAnimator = null;
+    //[SerializeField] private Animator canvasAnimator = null;
     [SerializeField] private float sceneTransitionTime = 1f;
-
 
     public void startGameWrapper()
     {

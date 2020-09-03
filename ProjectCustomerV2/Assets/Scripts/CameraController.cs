@@ -17,6 +17,8 @@ public class CameraController : MonoBehaviour
     {
         transform.position = player.position + cameraSettings.offset;
 
+        
+
         transform.LookAt(player);
 
         handleCameraZoom();
@@ -26,10 +28,20 @@ public class CameraController : MonoBehaviour
     {
         float scrollValue = Input.GetAxis("Mouse ScrollWheel");
 
-        if (cameraSettings.offset.y < cameraSettings.maxCameraHeight)
+        if ((cameraSettings.offset.y < cameraSettings.maxCameraHeight) && (cameraSettings.offset.y > cameraSettings.minCameraHeight))
         {
             cameraSettings.offset.y += scrollValue * -cameraSettings.scrollSpeed * cameraSettings.scrollMultiplier * Time.deltaTime;
         }
-        else { cameraSettings.offset.y = cameraSettings.maxCameraHeight - 0.5f; }
+        else
+        { 
+            if (cameraSettings.offset.y > cameraSettings.maxCameraHeight)
+            {
+                cameraSettings.offset.y = cameraSettings.maxCameraHeight - 0.5f;
+            }
+            else if (cameraSettings.offset.y < cameraSettings.minCameraHeight)
+            {
+                cameraSettings.offset.y = cameraSettings.minCameraHeight + 0.5f;
+            }
+        }
     }
 }

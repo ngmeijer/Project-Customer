@@ -14,6 +14,10 @@ public class EnemySettings : MonoBehaviour
     public int turnSpeed = 300;
     public int avoidSpeed = 2;
 
+    public float randomDirectionRange = 20f;
+
+    public int timeToFindNewDirection = 10;
+
     #endregion
 
     private void Start()
