@@ -8,8 +8,5 @@ public class StoreSettings : MonoBehaviour
 
     public int[] upgradePriceList = { 100, 100, 100 };
 
-    public int newCapacity = 300;
-    public int newSpeed = 8;
-
     #endregion
 }

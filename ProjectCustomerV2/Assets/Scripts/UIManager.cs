@@ -14,6 +14,7 @@ public class UIManager : MonoBehaviour
     public TextMeshProUGUI trashCounter = null;
     public TextMeshProUGUI moneyCounter = null;
     public TextMeshProUGUI supportersCounter = null;
+    public TextMeshProUGUI timer = null;
 
     [SerializeField] private GameObject storeUI = null;
     [SerializeField] private GameObject storeButton = null;
@@ -71,5 +72,10 @@ public class UIManager : MonoBehaviour
 
         playerStats.supporters += counterAmount;
         counter.text = totalSupporters.ToString();
+    }
+
+    public void showTimer(int timeLeft)
+    {
+        timer.text = timeLeft.ToString();
     }
 }

@@ -24,7 +24,6 @@ public class SupporterTracker : MonoBehaviour
 
     private void addNewSupporters()
     {
-        Debug.Log(timer);
         timer += Time.deltaTime;
 
         if (timer >= newSupporterInterval)

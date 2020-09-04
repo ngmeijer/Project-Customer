@@ -7,10 +7,9 @@ public class TrashGenerator : MonoBehaviour
 {
     public static TrashGenerator SharedInstance;
 
-
-    [SerializeField] private List<GameObject> trashPrefabs = new List<GameObject>();
     [SerializeField] private List<GameObject> pooledObjects;
-    [SerializeField] private int amountToPool = 20;
+
+    [SerializeField] private List<Vector3> spawningPositions;
 
     private TrashGeneratorSettings trashGeneratorSettings = null;
 
@@ -27,10 +26,10 @@ public class TrashGenerator : MonoBehaviour
 
         pooledObjects = new List<GameObject>();
 
-        for (int i = 0; i < amountToPool; i++)
+        for (int i = 0; i < trashGeneratorSettings.amountToPool; i++)
         {
             int randomTrash = randomTrashPrefab();
-            GameObject trashInstance = Instantiate(trashPrefabs[randomTrash]);
+            GameObject trashInstance = Instantiate(trashGeneratorSettings.trashPrefabs[randomTrash]);
             trashInstance.SetActive(false);
             pooledObjects.Add(trashInstance);
         }
@@ -60,27 +59,37 @@ public class TrashGenerator : MonoBehaviour
 
     private void generateTrash()
     {
-        int randomPrefab = randomTrashPrefab();
-
         Vector3 point;
+
         if (RandomPoint(transform.position, trashGeneratorSettings.spawnRange, out point))
         {
+            spawningPositions.Add(point);
+
+            for (int i = 0; i < spawningPositions.Count; i++)
+            {
+                float distanceToOtherPoint = Vector3.Distance(point, spawningPositions[i]);
+
+                if(distanceToOtherPoint < trashGeneratorSettings.minDistanceToOtherTrash)
+                {
+                    generateTrash();
+                }
+            }
+
             GameObject trashInstance = GetPooledObject();
             if (trashInstance != null)
             {
+                Debug.Log("set active");
                 trashInstance.transform.position = point;
                 trashInstance.transform.rotation = Quaternion.identity;
                 trashInstance.SetActive(true);
             }
-            Debug.DrawRay(point, Vector3.up, Color.blue, trashGeneratorSettings.trashLifeTime);
         }
-
         trashTimer = 0;
     }
 
     private int randomTrashPrefab()
     {
-        int randomPrefab = Random.Range(0, trashPrefabs.Count);
+        int randomPrefab = Random.Range(0, trashGeneratorSettings.trashPrefabs.Count);
 
         return randomPrefab;
     }
