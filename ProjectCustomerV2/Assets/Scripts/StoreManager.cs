@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 [RequireComponent(typeof(StoreSettings))]
@@ -7,40 +8,48 @@ public class StoreManager : MonoBehaviour
 {
     private PlayerUpgrades playerUpgrades = null;
     private PlayerStats playerStats = null;
-    private PlayerSettings playerSettings = null;
     private UIManager uiManager = null;
     private StoreSettings storeSettings = null;
-    private AchievementTracker achievementTracker = null;
 
     [SerializeField] private int currentLevel = 0;
+
+    [SerializeField] private TextMeshProUGUI[] priceText = new TextMeshProUGUI[3];
 
     private void Start()
     {
         playerUpgrades = FindObjectOfType<PlayerUpgrades>();
         playerStats = FindObjectOfType<PlayerStats>();
-        playerSettings = FindObjectOfType<PlayerSettings>();
         uiManager = GetComponent<UIManager>();
         storeSettings = GetComponent<StoreSettings>();
-        achievementTracker = FindObjectOfType<AchievementTracker>();
+
+        for(int i = 0; i < 3; i++)
+        {
+            priceText[i].text = storeSettings.upgradePriceList[i].ToString();
+        }
     }
 
     public void buyFirstUpgrade()
     {
-        Debug.Log(playerStats.money);
-        if (storeSettings.firstUpgradePrice >= playerStats.money)
+        if (storeSettings.upgradePriceList[0] <= playerStats.money)
         {
-            playerUpgrades.applyUpgrades(currentLevel, 0, storeSettings.firstUpgradePrice);
+            playerUpgrades.applyUpgrades(currentLevel, 0, storeSettings.upgradePriceList[0]);
         }
     }
 
     public void buySecondUpgrade()
     {
-        playerUpgrades.applyUpgrades(currentLevel, 1, storeSettings.secondUpgradePrice);
+        if (storeSettings.upgradePriceList[1] <= playerStats.money)
+        {
+            playerUpgrades.applyUpgrades(currentLevel, 1, storeSettings.upgradePriceList[1]);
+        }
     }
 
     public void buyThirdUpgrade()
     {
-        playerUpgrades.applyUpgrades(currentLevel, 2, storeSettings.thirdUpgradePrice);
+        if (storeSettings.upgradePriceList[2] <= playerStats.money)
+        {
+            playerUpgrades.applyUpgrades(currentLevel, 2, storeSettings.upgradePriceList[2]);
+        }
     }
 
     public void emptyTrash()

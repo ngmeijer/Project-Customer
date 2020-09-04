@@ -24,12 +24,29 @@ public class PlayerStats : MonoBehaviour
 
     public int trashAmount = 0;
     public int money = 0;
-    public int followers = 0;
-
-    public void calculateMoney(int rewardedMoney)
-    {
-        money += rewardedMoney;
-    }
+    public int supporters = 0;
 
     #endregion
+
+    public int calculateMoney(int rewardedMoney)
+    {
+        money += rewardedMoney;
+
+        return money;
+    }
+
+    public int calculateSupporters(int supportersGained)
+    {
+        supporters += supportersGained;
+
+        return supporters;
+    }
+
+    //public void updateSupporters(TextMeshProUGUI counter, int counterAmount)
+    //{
+    //    int totalSupporters = playerStats.supporters;
+
+    //    playerStats.supporters += counterAmount;
+    //    counter.text = totalSupporters.ToString();
+    //}
 }

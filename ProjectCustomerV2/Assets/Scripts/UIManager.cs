@@ -13,6 +13,7 @@ public class UIManager : MonoBehaviour
 
     public TextMeshProUGUI trashCounter = null;
     public TextMeshProUGUI moneyCounter = null;
+    public TextMeshProUGUI supportersCounter = null;
 
     [SerializeField] private GameObject storeUI = null;
     [SerializeField] private GameObject storeButton = null;
@@ -62,5 +63,13 @@ public class UIManager : MonoBehaviour
     public void updateStats(TextMeshProUGUI counter, int counterAmount)
     {
         counter.text = counterAmount.ToString();
+    }
+
+    public void updateSupporters(TextMeshProUGUI counter, int counterAmount)
+    {
+        int totalSupporters = playerStats.supporters;
+
+        playerStats.supporters += counterAmount;
+        counter.text = totalSupporters.ToString();
     }
 }

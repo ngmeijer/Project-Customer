@@ -6,9 +6,7 @@ public class StoreSettings : MonoBehaviour
 {
     #region Variables
 
-    public int firstUpgradePrice = 100;
-    public int secondUpgradePrice = 100;
-    public int thirdUpgradePrice = 100;
+    public int[] upgradePriceList = { 100, 100, 100 };
 
     public int newCapacity = 300;
     public int newSpeed = 8;
