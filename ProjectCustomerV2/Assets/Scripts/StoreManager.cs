@@ -8,6 +8,7 @@ public class StoreManager : MonoBehaviour
 {
     private PlayerUpgrades playerUpgrades = null;
     private PlayerStats playerStats = null;
+    private SupporterTracker supporterTracker = null;
     private UIManager uiManager = null;
     private StoreSettings storeSettings = null;
 
@@ -19,10 +20,11 @@ public class StoreManager : MonoBehaviour
     {
         playerUpgrades = FindObjectOfType<PlayerUpgrades>();
         playerStats = FindObjectOfType<PlayerStats>();
+        supporterTracker = FindObjectOfType<SupporterTracker>();
         uiManager = GetComponent<UIManager>();
         storeSettings = GetComponent<StoreSettings>();
 
-        for(int i = 0; i < 3; i++)
+        for (int i = 0; i < 3; i++)
         {
             priceText[i].text = storeSettings.upgradePriceList[i].ToString();
         }
@@ -54,9 +56,12 @@ public class StoreManager : MonoBehaviour
 
     public void emptyTrash()
     {
-        playerStats.calculateMoney(playerStats.trashAmount);
+        playerStats.calculateMoney((int)playerStats.trashAmount);
         uiManager.updateStats(uiManager.moneyCounter, playerStats.money);
+
+        supporterTracker.calculateSupportersOnTrashDep((int)playerStats.trashAmount);
+        uiManager.updateSupporters(uiManager.supportersCounter, playerStats.supporters);
         playerStats.trashAmount = 0;
-        uiManager.updateStats(uiManager.trashCounter, playerStats.trashAmount);
+        uiManager.updateStats(uiManager.trashCounter, (int)playerStats.trashAmount);
     }
 }

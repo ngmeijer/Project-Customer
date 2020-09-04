@@ -8,9 +8,7 @@ public class TimeTracker : MonoBehaviour
     private UIManager uiManager = null;
 
     public float timer = 0;
-    [SerializeField] private int timeTimerIsVisible = 30;
-
-    [SerializeField] private int timeForNewLevel = 300;
+    
 
     private void Start()
     {
@@ -22,12 +20,12 @@ public class TimeTracker : MonoBehaviour
     {
         timer += Time.deltaTime;
 
-        if(timer > (timeForNewLevel - timeTimerIsVisible))
+        if(timer > (levelManager.timeForNewLevel - levelManager.timeTimerIsVisible))
         {
-            int timeLeft = timeForNewLevel - (int)timer;
+            int timeLeft = levelManager.timeForNewLevel - (int)timer;
             uiManager.showTimer(timeLeft);
 
-            if (timer >= timeForNewLevel)
+            if (timer >= levelManager.timeForNewLevel)
             {
                 levelManager.loadNextLevel();
             }

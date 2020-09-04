@@ -70,7 +70,7 @@ public class UIManager : MonoBehaviour
     {
         int totalSupporters = playerStats.supporters;
 
-        playerStats.supporters += counterAmount;
+        playerStats.supporters = counterAmount;
         counter.text = totalSupporters.ToString();
     }
 

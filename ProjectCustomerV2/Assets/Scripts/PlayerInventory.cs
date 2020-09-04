@@ -8,10 +8,12 @@ public class PlayerInventory : MonoBehaviour
     private PlayerStats playerStats = null;
     private UIManager uiManager = null;
     private AchievementTracker achievementTracker = null;
+    private PlayerLight playerLight = null;
 
     private void Start()
     {
         playerStats = GetComponent<PlayerStats>();
+        playerLight = GetComponent<PlayerLight>();
         playerSettings = GetComponent<PlayerSettings>();
         uiManager = FindObjectOfType<UIManager>();
         achievementTracker = FindObjectOfType<AchievementTracker>();
@@ -28,7 +30,9 @@ public class PlayerInventory : MonoBehaviour
             {
                 achievementTracker.newTrashCollectedRecord(playerSettings.smallTrash);
                 playerStats.trashAmount += playerSettings.smallTrash;
-                uiManager.updateStats(uiManager.trashCounter, playerStats.trashAmount);
+                uiManager.updateStats(uiManager.trashCounter, (int)playerStats.trashAmount);
+
+                playerLight.updateLightColor((float)playerStats.trashAmount / (float)playerSettings.maxCapacity);
             }
             else
             {
@@ -46,7 +50,9 @@ public class PlayerInventory : MonoBehaviour
             {
                 achievementTracker.newTrashCollectedRecord(playerSettings.bigTrash);
                 playerStats.trashAmount += playerSettings.bigTrash;
-                uiManager.updateStats(uiManager.trashCounter, playerStats.trashAmount);
+                uiManager.updateStats(uiManager.trashCounter, (int)playerStats.trashAmount);
+
+                playerLight.updateLightColor((float)playerStats.trashAmount / (float)playerSettings.maxCapacity);
             }
             else
             {

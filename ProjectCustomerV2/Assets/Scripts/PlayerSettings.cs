@@ -8,7 +8,7 @@ public class PlayerSettings : MonoBehaviour
 
     private PlayerController playerController;
 
-    public int maxCapacity = 200;
+    public float maxCapacity = 200;
     public int speed = 4;
 
     public int smallTrash = 20;
@@ -24,6 +24,4 @@ public class PlayerSettings : MonoBehaviour
 
         playerController.playerAgent.speed = speed;
     }
-
-    
 }

@@ -7,6 +7,10 @@ public class LevelManager : MonoBehaviour
 {
     private TimeTracker timeTracker = null;
 
+    public int timeTimerIsVisible = 30;
+
+    public int timeForNewLevel = 300;
+
     private void Start()
     {
         timeTracker = FindObjectOfType<TimeTracker>();

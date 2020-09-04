@@ -22,7 +22,7 @@ public class PlayerStats : MonoBehaviour
 
     #region Variables
 
-    public int trashAmount = 0;
+    public float trashAmount = 0;
     public int money = 0;
     public int supporters = 0;
 
@@ -30,23 +30,8 @@ public class PlayerStats : MonoBehaviour
 
     public int calculateMoney(int rewardedMoney)
     {
-        money += rewardedMoney;
+        money += (int)rewardedMoney;
 
         return money;
     }
-
-    public int calculateSupporters(int supportersGained)
-    {
-        supporters += supportersGained;
-
-        return supporters;
-    }
-
-    //public void updateSupporters(TextMeshProUGUI counter, int counterAmount)
-    //{
-    //    int totalSupporters = playerStats.supporters;
-
-    //    playerStats.supporters += counterAmount;
-    //    counter.text = totalSupporters.ToString();
-    //}
 }
