@@ -22,9 +22,4 @@ public class MenuController : MonoBehaviour
 
         yield break;
     }
-
-    public void QuitGame()
-    {
-        Application.Quit();
-    }
 }

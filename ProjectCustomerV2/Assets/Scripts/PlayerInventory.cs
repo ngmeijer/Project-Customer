@@ -30,7 +30,7 @@ public class PlayerInventory : MonoBehaviour
             {
                 achievementTracker.newTrashCollectedRecord(playerSettings.smallTrash);
                 playerStats.trashAmount += playerSettings.smallTrash;
-                uiManager.updateStats(uiManager.trashCounter, (int)playerStats.trashAmount);
+                uiManager.updateStats(uiManager.trashCounter, (int)playerStats.trashAmount, false);
 
                 playerLight.updateLightColor((float)playerStats.trashAmount / (float)playerSettings.maxCapacity);
             }
@@ -50,7 +50,7 @@ public class PlayerInventory : MonoBehaviour
             {
                 achievementTracker.newTrashCollectedRecord(playerSettings.bigTrash);
                 playerStats.trashAmount += playerSettings.bigTrash;
-                uiManager.updateStats(uiManager.trashCounter, (int)playerStats.trashAmount);
+                uiManager.updateStats(uiManager.trashCounter, (int)playerStats.trashAmount, false);
 
                 playerLight.updateLightColor((float)playerStats.trashAmount / (float)playerSettings.maxCapacity);
             }

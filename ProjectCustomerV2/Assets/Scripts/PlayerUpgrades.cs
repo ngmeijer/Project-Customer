@@ -43,20 +43,20 @@ public class PlayerUpgrades : MonoBehaviour
                             firstUpgrade.SetActive(true);
                             playerController.playerAgent.speed = newMoveSpeed;
                             playerStats.money -= upgradePrice;
-                            uiManager.updateStats(uiManager.moneyCounter, playerStats.money);
+                            uiManager.updateStats(uiManager.moneyCounter, playerStats.money, false);
                             break;
                         case 1:
                             //Fishnet
                             secondUpgrade.SetActive(true);
                             playerStats.money -= upgradePrice;
-                            uiManager.updateStats(uiManager.moneyCounter, playerStats.money);
+                            uiManager.updateStats(uiManager.moneyCounter, playerStats.money, false);
                             break;
                         case 2:
                             //Trailer = capacity upgrade
                             thirdUpgrade.SetActive(true);
                             playerSettings.maxCapacity = newCapacity;
                             playerStats.money -= upgradePrice;
-                            uiManager.updateStats(uiManager.moneyCounter, playerStats.money);
+                            uiManager.updateStats(uiManager.moneyCounter, playerStats.money, false);
                             break;
                     }
                     break;

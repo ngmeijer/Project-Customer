@@ -27,7 +27,7 @@ public class TimeTracker : MonoBehaviour
 
             if (timer >= levelManager.timeForNewLevel)
             {
-                levelManager.loadSceneWrapper();
+                levelManager.ActivateScene();
             }
         }
     }

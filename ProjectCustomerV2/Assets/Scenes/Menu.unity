@@ -443,8 +443,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 626969438}
-        m_TargetAssemblyTypeName: MenuController, Assembly-CSharp
-        m_MethodName: startGameWrapper
+        m_TargetAssemblyTypeName: LevelManager, Assembly-CSharp
+        m_MethodName: ActivateScene
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -535,11 +535,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 626969436}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5eb02fbcb6158dc458d23f7e5ff5db92, type: 3}
+  m_Script: {fileID: 11500000, guid: 93c61c52b94ba5248b49218b038ad1b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  canvasAnimator: {fileID: 626969439}
-  sceneTransitionTime: 1
+  timeTimerIsVisible: 30
+  timeForNewLevel: 300
+  startButton: {fileID: 0}
 --- !u!95 &626969439
 Animator:
   serializedVersion: 3

@@ -7,46 +7,41 @@ using UnityEngine.UI;
 public class LevelManager : MonoBehaviour
 {
     private TimeTracker timeTracker = null;
+    private AsyncOperation async;
 
     public int timeTimerIsVisible = 30;
 
     public int timeForNewLevel = 300;
 
-    [SerializeField] private Button startButton = null;
+    [SerializeField] private Button newSceneButton = null;
 
     void Start()
     {
         timeTracker = FindObjectOfType<TimeTracker>();
 
-        LoadButton();
+        preloadScene();
     }
 
-    private void LoadButton()
+    private void preloadScene()
     {
-        StartCoroutine(LoadScene());
+        StartCoroutine(load());
     }
 
-    private IEnumerator LoadScene()
+    private IEnumerator load()
     {
-        yield return null;
+        async = SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex + 1);
+        async.allowSceneActivation = false;
 
-        AsyncOperation asyncOperation = SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex + 1);
-
-        asyncOperation.allowSceneActivation = false;
-
-        while (!asyncOperation.isDone)
-        {
-            if (asyncOperation.progress >= 0.9f)
-            {
-                asyncOperation.allowSceneActivation = true;
-            }
-
-            yield return null;
-        }
+        yield return async;
     }
 
-    public void loadSceneWrapper()
+    public void ActivateScene()
     {
-        StartCoroutine(LoadScene());
+        async.allowSceneActivation = true;
+    }
+
+    public void QuitGame()
+    {
+        Application.Quit();
     }
 }

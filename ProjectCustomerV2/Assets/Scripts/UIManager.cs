@@ -16,6 +16,9 @@ public class UIManager : MonoBehaviour
     public TextMeshProUGUI supportersCounter = null;
     public TextMeshProUGUI timer = null;
 
+    [SerializeField] private GameObject interceptorUI = null;
+    public TextMeshProUGUI interceptorHealth = null;
+
     [SerializeField] private GameObject store = null;
     [SerializeField] private GameObject storeUI = null;
     [SerializeField] private GameObject storeButton = null;
@@ -31,44 +34,36 @@ public class UIManager : MonoBehaviour
         animator = GetComponent<Animator>();
     }
 
-    public void handleStoreVisible()
-    {
-        if (!store.activeInHierarchy)
-        {
-            store.SetActive(true);
-
-            trashGenerator.enabled = false;
-            playerController.enabled = false;
-
-            storeButton.SetActive(false);
-        }
-        else
-        {
-            store.SetActive(false);
-
-            trashGenerator.enabled = true;
-            playerController.enabled = true;
-
-            storeButton.SetActive(true);
-        }
-    }
-
     public void handleStoreOnEnter()
     {
-        if (!storeUI.activeInHierarchy)
-        {
-            storeUI.SetActive(true);
+        storeUI.SetActive(true);
+    }
 
+    public void handleStoreOnExit()
+    {
+        storeUI.SetActive(false);
+    }
+
+    public void handleInterceptorOnEnter()
+    {
+        interceptorUI.SetActive(true);
+    }
+
+    public void handleInterceptorOnExit()
+    {
+        interceptorUI.SetActive(false);
+    }
+
+    public void updateStats(TextMeshProUGUI counter, int counterAmount, bool includePercentage)
+    {
+        if (!includePercentage)
+        {
+            counter.text = counterAmount.ToString();
         }
         else
         {
-            storeUI.SetActive(false);
+            counter.text = counterAmount.ToString() + "%";
         }
-    }
-
-    public void updateStats(TextMeshProUGUI counter, int counterAmount)
-    {
-        counter.text = counterAmount.ToString();
     }
 
     public void updateSupporters(TextMeshProUGUI counter, int counterAmount)
@@ -89,5 +84,17 @@ public class UIManager : MonoBehaviour
         animator.SetTrigger("ShowTweet");
 
         tweetText.text = text;
+    }
+
+    public void pauseGame()
+    {
+        animator.SetTrigger("Pause");
+        Time.timeScale = 0;
+    }
+
+    public void resumeGame()
+    {
+        Time.timeScale = 1;
+        animator.SetTrigger("Resume");
     }
 }

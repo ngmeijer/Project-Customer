@@ -57,11 +57,11 @@ public class StoreManager : MonoBehaviour
     public void emptyTrash()
     {
         playerStats.calculateMoney((int)playerStats.trashAmount);
-        uiManager.updateStats(uiManager.moneyCounter, playerStats.money);
+        uiManager.updateStats(uiManager.moneyCounter, playerStats.money, false);
 
         supporterTracker.calculateSupportersOnTrashDep((int)playerStats.trashAmount);
         uiManager.updateSupporters(uiManager.supportersCounter, playerStats.supporters);
         playerStats.trashAmount = 0;
-        uiManager.updateStats(uiManager.trashCounter, (int)playerStats.trashAmount);
+        uiManager.updateStats(uiManager.trashCounter, (int)playerStats.trashAmount, false);
     }
 }
