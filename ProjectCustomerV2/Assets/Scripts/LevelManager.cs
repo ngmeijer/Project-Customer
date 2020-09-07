@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class LevelManager : MonoBehaviour
 {
@@ -11,13 +12,41 @@ public class LevelManager : MonoBehaviour
 
     public int timeForNewLevel = 300;
 
-    private void Start()
+    [SerializeField] private Button startButton = null;
+
+    void Start()
     {
         timeTracker = FindObjectOfType<TimeTracker>();
+
+        LoadButton();
     }
 
-    public void loadNextLevel()
+    private void LoadButton()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        StartCoroutine(LoadScene());
+    }
+
+    private IEnumerator LoadScene()
+    {
+        yield return null;
+
+        AsyncOperation asyncOperation = SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex + 1);
+
+        asyncOperation.allowSceneActivation = false;
+
+        while (!asyncOperation.isDone)
+        {
+            if (asyncOperation.progress >= 0.9f)
+            {
+                asyncOperation.allowSceneActivation = true;
+            }
+
+            yield return null;
+        }
+    }
+
+    public void loadSceneWrapper()
+    {
+        StartCoroutine(LoadScene());
     }
 }

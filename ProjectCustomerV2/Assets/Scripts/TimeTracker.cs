@@ -27,7 +27,7 @@ public class TimeTracker : MonoBehaviour
 
             if (timer >= levelManager.timeForNewLevel)
             {
-                levelManager.loadNextLevel();
+                levelManager.loadSceneWrapper();
             }
         }
     }

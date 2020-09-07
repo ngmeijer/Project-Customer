@@ -63,23 +63,31 @@ public class TrashGenerator : MonoBehaviour
 
         if (RandomPoint(transform.position, trashGeneratorSettings.spawnRange, out point))
         {
-            spawningPositions.Add(point);
-
-            for (int i = 0; i < spawningPositions.Count; i++)
+            GameObject trashInstance = GetPooledObject();
+            if (trashInstance != null)
             {
-                float distanceToOtherPoint = Vector3.Distance(point, spawningPositions[i]);
-
-                if (distanceToOtherPoint >= trashGeneratorSettings.minDistanceToOtherTrash)
-                {
-                    GameObject trashInstance = GetPooledObject();
-                    if (trashInstance != null)
-                    {
-                        trashInstance.transform.position = point;
-                        trashInstance.transform.rotation = Quaternion.identity;
-                        trashInstance.SetActive(true);
-                    }
-                }
+                trashInstance.transform.position = point;
+                trashInstance.transform.rotation = Quaternion.identity;
+                trashInstance.SetActive(true);
             }
+
+            //spawningPositions.Add(point);
+
+            //for (int i = 0; i < spawningPositions.Count; i++)
+            //{
+            //    float distanceToOtherPoint = Vector3.Distance(point, spawningPositions[i]);
+
+            //    if (distanceToOtherPoint >= trashGeneratorSettings.minDistanceToOtherTrash)
+            //    {
+            //        GameObject trashInstance = GetPooledObject();
+            //        if (trashInstance != null)
+            //        {
+            //            trashInstance.transform.position = point;
+            //            trashInstance.transform.rotation = Quaternion.identity;
+            //            trashInstance.SetActive(true);
+            //        }
+            //    }
+            //}
         }
         trashTimer = 0;
     }
@@ -97,7 +105,7 @@ public class TrashGenerator : MonoBehaviour
         {
             Vector3 randomPoint = center + Random.insideUnitSphere * range;
             NavMeshHit hit;
-            if (NavMesh.SamplePosition(randomPoint, out hit, 1.0f, NavMesh.AllAreas))
+            if (NavMesh.SamplePosition(randomPoint, out hit, 1.0f, NavMesh.GetAreaFromName("Walkable")))
             {
                 result = hit.position;
                 return true;

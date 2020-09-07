@@ -5,25 +5,30 @@ using UnityEngine;
 
 public class UIManager : MonoBehaviour
 {
-    [SerializeField] private GameObject store = null;
-
     private TrashGenerator trashGenerator = null;
     private PlayerController playerController = null;
     private PlayerStats playerStats = null;
+
+    private Animator animator = null;
 
     public TextMeshProUGUI trashCounter = null;
     public TextMeshProUGUI moneyCounter = null;
     public TextMeshProUGUI supportersCounter = null;
     public TextMeshProUGUI timer = null;
 
+    [SerializeField] private GameObject store = null;
     [SerializeField] private GameObject storeUI = null;
     [SerializeField] private GameObject storeButton = null;
+
+    [SerializeField] private TextMeshProUGUI tweetText = null;
 
     private void Start()
     {
         trashGenerator = FindObjectOfType<TrashGenerator>();
         playerController = FindObjectOfType<PlayerController>();
         playerStats = FindObjectOfType<PlayerStats>();
+
+        animator = GetComponent<Animator>();
     }
 
     public void handleStoreVisible()
@@ -77,5 +82,12 @@ public class UIManager : MonoBehaviour
     public void showTimer(int timeLeft)
     {
         timer.text = timeLeft.ToString();
+    }
+
+    public void showTweet(string text)
+    {
+        animator.SetTrigger("ShowTweet");
+
+        tweetText.text = text;
     }
 }
