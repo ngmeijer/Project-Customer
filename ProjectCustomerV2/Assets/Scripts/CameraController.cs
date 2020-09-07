@@ -66,15 +66,17 @@ public class CameraController : MonoBehaviour
             position.z -= cameraSettings.panSpeed * Time.deltaTime;
         }
 
-        if (transform.position.z < cameraSettings.minZ)
-        {
-            position = new Vector3(transform.position.x, transform.position.y, cameraSettings.minZ);
-        }
+        //if (transform.position.z < cameraSettings.minZ)
+        //{
+        //    position = new Vector3(transform.position.x, transform.position.y, cameraSettings.minZ);
+        //}
 
-        if (transform.position.z > cameraSettings.maxZ)
-        {
-            position = new Vector3(transform.position.x, transform.position.y, cameraSettings.maxZ);
-        }
+        //if (transform.position.z > cameraSettings.maxZ)
+        //{
+        //    position = new Vector3(transform.position.x, transform.position.y, cameraSettings.maxZ);
+        //}
+
+        position.z = Mathf.Clamp(position.z, cameraSettings.minZ, cameraSettings.maxZ);
 
         transform.position = position;
     }
@@ -84,8 +86,7 @@ public class CameraController : MonoBehaviour
         if ((cameraSettings.offset.y < cameraSettings.maxCameraHeight)
             && (cameraSettings.offset.y > cameraSettings.minCameraHeight))
         {
-            cameraSettings.offset.y +=
-                                    scrollValue * -cameraSettings.scrollSpeed
+            cameraSettings.offset.y += scrollValue * -cameraSettings.scrollSpeed
                                     * cameraSettings.scrollMultiplier * Time.deltaTime;
         }
         else

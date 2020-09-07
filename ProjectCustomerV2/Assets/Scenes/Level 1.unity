@@ -1282,7 +1282,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 80e38e4fbaa0c234ba5e9393ba409ba4, type: 2}
+  - {fileID: 2100000, guid: 19b8f691625949d46905cf8244097cde, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2344,13 +2344,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 80b5c19efc73e104eaac1e49b86129c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player: {fileID: 0}
   scrollSpeed: 200
   scrollMultiplier: 10
   offset: {x: 0, y: 20.5, z: -15}
   rotateValue: {x: 0, y: 0, z: 0}
+  minZ: 0
+  maxZ: 0
   cameraHeight: 12
   maxCameraHeight: 50
   minCameraHeight: 10
+  lockOnPlayer: 1
+  abilityToZoom: 1
+  moveOnZ: 0
+  invert: 0
+  panBorderTreshold: 5
+  panSpeed: 5
 --- !u!81 &2383245996357386723
 AudioListener:
   m_ObjectHideFlags: 0
@@ -2428,7 +2437,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0bfa227b061efa54eb4377cf5126f6f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 2383245996396943418}
+  zPosition: 0
 --- !u!114 &2383245996357386735
 MonoBehaviour:
   m_ObjectHideFlags: 0
