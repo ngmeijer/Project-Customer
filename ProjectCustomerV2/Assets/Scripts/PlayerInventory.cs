@@ -8,12 +8,13 @@ public class PlayerInventory : MonoBehaviour
     private PlayerStats playerStats = null;
     private UIManager uiManager = null;
     private AchievementTracker achievementTracker = null;
-    private PlayerLight playerLight = null;
+
+    public float progress;
+    private float timePresent = 0;
 
     private void Start()
     {
         playerStats = GetComponent<PlayerStats>();
-        playerLight = GetComponent<PlayerLight>();
         playerSettings = GetComponent<PlayerSettings>();
         uiManager = FindObjectOfType<UIManager>();
         achievementTracker = FindObjectOfType<AchievementTracker>();
@@ -21,23 +22,19 @@ public class PlayerInventory : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("SmallTrash"))
+        if (other.gameObject.CompareTag("SmallTrash") || other.gameObject.CompareTag("Trash"))
         {
-            TrashController instance = other.gameObject.GetComponent<TrashController>();
-            StartCoroutine(instance.handleDeactivation(playerSettings.pickupTime));
-
             if ((playerStats.trashAmount + playerSettings.smallTrash) <= playerSettings.maxCapacity)
             {
-                achievementTracker.newTrashCollectedRecord(playerSettings.smallTrash);
+                //achievementTracker.newTrashCollectedRecord(playerSettings.smallTrash);
                 playerStats.trashAmount += playerSettings.smallTrash;
                 uiManager.updateStats(uiManager.trashCounter, (int)playerStats.trashAmount, false);
-
-                playerLight.updateLightColor((float)playerStats.trashAmount / (float)playerSettings.maxCapacity);
             }
             else
             {
-                Debug.Log("Your ship is full! Return to base");
                 playerStats.trashAmount = playerSettings.maxCapacity;
+                uiManager.updateStats(uiManager.trashCounter, (int)playerStats.trashAmount, false);
+                uiManager.handleShipFullNotif(true);
             }
         }
 
@@ -48,16 +45,35 @@ public class PlayerInventory : MonoBehaviour
 
             if ((playerStats.trashAmount + playerSettings.bigTrash) <= playerSettings.maxCapacity)
             {
-                achievementTracker.newTrashCollectedRecord(playerSettings.bigTrash);
+                //achievementTracker.newTrashCollectedRecord(playerSettings.bigTrash);
                 playerStats.trashAmount += playerSettings.bigTrash;
                 uiManager.updateStats(uiManager.trashCounter, (int)playerStats.trashAmount, false);
-
-                playerLight.updateLightColor((float)playerStats.trashAmount / (float)playerSettings.maxCapacity);
             }
             else
             {
-                Debug.Log("Your ship is full! Return to base");
                 playerStats.trashAmount = playerSettings.maxCapacity;
+                uiManager.updateStats(uiManager.trashCounter, (int)playerStats.trashAmount, false);
+                uiManager.handleShipFullNotif(true);
+            }
+        }
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.gameObject.CompareTag("Trash"))
+        {
+            TrashController instance = other.gameObject.GetComponent<TrashController>();
+            StartCoroutine(instance.handleDeactivation(playerSettings.pickupTime));
+
+            timePresent += Time.deltaTime;
+            progress = timePresent / playerSettings.pickupTime;
+
+            uiManager.showProgressBar(progress);
+
+            if (progress >= 1)
+            {
+                timePresent = 0;
+                uiManager.hideProgressbar();
             }
         }
     }

@@ -12,10 +12,11 @@ public class TrashGenerator : MonoBehaviour
     [SerializeField] private List<Vector3> spawningPositions;
 
     private TrashGeneratorSettings trashGeneratorSettings = null;
+    [SerializeField] private Transform trashParent = null;
 
     private float trashTimer = 0.0f;
 
-    void Awake()
+    private void Awake()
     {
         SharedInstance = this;
     }
@@ -30,6 +31,7 @@ public class TrashGenerator : MonoBehaviour
         {
             int randomTrash = randomTrashPrefab();
             GameObject trashInstance = Instantiate(trashGeneratorSettings.trashPrefabs[randomTrash]);
+            trashInstance.transform.SetParent(trashParent);
             trashInstance.SetActive(false);
             pooledObjects.Add(trashInstance);
         }
@@ -105,7 +107,7 @@ public class TrashGenerator : MonoBehaviour
         {
             Vector3 randomPoint = center + Random.insideUnitSphere * range;
             NavMeshHit hit;
-            if (NavMesh.SamplePosition(randomPoint, out hit, 1.0f, NavMesh.GetAreaFromName("Walkable")))
+            if (NavMesh.SamplePosition(randomPoint, out hit, 1.0f, NavMesh.AllAreas))
             {
                 result = hit.position;
                 return true;

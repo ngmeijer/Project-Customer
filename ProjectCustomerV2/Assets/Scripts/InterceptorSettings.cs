@@ -9,5 +9,10 @@ public class InterceptorSettings : MonoBehaviour
     public int health = 100;
     public int maxHealth = 100;
 
+    public float currentTrashAmount = 0;
+    public float maxTrashAmount = 200;
+
+    public List<Color> lightColours = new List<Color>();
+
     #endregion
 }

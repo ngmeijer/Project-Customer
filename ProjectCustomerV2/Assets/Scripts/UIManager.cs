@@ -1,7 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using Microsoft.Unity.VisualStudio.Editor;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
@@ -19,11 +19,14 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject interceptorUI = null;
     public TextMeshProUGUI interceptorHealth = null;
 
-    [SerializeField] private GameObject store = null;
+    [SerializeField] private GameObject exclamationMark = null;
+
     [SerializeField] private GameObject storeUI = null;
-    [SerializeField] private GameObject storeButton = null;
 
     [SerializeField] private TextMeshProUGUI tweetText = null;
+    [SerializeField] private GameObject shipFullText = null;
+    [SerializeField] private GameObject progressBar = null;
+    [SerializeField] private Slider slider = null;
 
     private void Start()
     {
@@ -36,11 +39,13 @@ public class UIManager : MonoBehaviour
 
     public void handleStoreOnEnter()
     {
+        playerController.enabled = false;
         storeUI.SetActive(true);
     }
 
     public void handleStoreOnExit()
     {
+        playerController.enabled = true;
         storeUI.SetActive(false);
     }
 
@@ -54,16 +59,17 @@ public class UIManager : MonoBehaviour
         interceptorUI.SetActive(false);
     }
 
+    public void handleShipFullNotif(bool active)
+    {
+        shipFullText.SetActive(active);
+    }
+
     public void updateStats(TextMeshProUGUI counter, int counterAmount, bool includePercentage)
     {
         if (!includePercentage)
-        {
             counter.text = counterAmount.ToString();
-        }
         else
-        {
             counter.text = counterAmount.ToString() + "%";
-        }
     }
 
     public void updateSupporters(TextMeshProUGUI counter, int counterAmount)
@@ -86,10 +92,27 @@ public class UIManager : MonoBehaviour
         tweetText.text = text;
     }
 
+    public void showProgressBar(float progress)
+    {
+        progressBar.SetActive(true);
+        slider.value = progress;
+    }
+
+    public void hideProgressbar()
+    {
+        slider.value = 0;
+        progressBar.SetActive(false);
+    }
+
     public void pauseGame()
     {
         animator.SetTrigger("Pause");
         Time.timeScale = 0;
+    }
+
+    public void handleInterceptorExclamation(bool active)
+    {
+        exclamationMark.SetActive(active);
     }
 
     public void resumeGame()

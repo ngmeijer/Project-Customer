@@ -5982,9 +5982,9 @@ MonoBehaviour:
   supportersCounter: {fileID: 1508417202}
   timer: {fileID: 886688875}
   interceptorUI: {fileID: 0}
-  store: {fileID: 3432896674026048942}
-  storeUI: {fileID: 3432896674700617158}
-  storeButton: {fileID: 3432896674700617158}
+  interceptorHealth: {fileID: 0}
+  exclamationMark: {fileID: 0}
+  storeUI: {fileID: 3432896674026048942}
   tweetText: {fileID: 1919654469}
 --- !u!114 &706712459
 MonoBehaviour:

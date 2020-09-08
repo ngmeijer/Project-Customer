@@ -3,7 +3,32 @@ guid: 7cce8a6c3ff32e14293928b28e4ec17e
 ModelImporter:
   serializedVersion: 20101
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: BoatBaseMat
+    second: {fileID: 2100000, guid: ff690dfb5da8b114a8ed8b3cd4db3597, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: FishnetUpdateMat
+    second: {fileID: 2100000, guid: ff690dfb5da8b114a8ed8b3cd4db3597, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: MotorBaseMat
+    second: {fileID: 2100000, guid: ff690dfb5da8b114a8ed8b3cd4db3597, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: MotorUpdateMat
+    second: {fileID: 2100000, guid: ff690dfb5da8b114a8ed8b3cd4db3597, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: TrailerUpdateMat
+    second: {fileID: 2100000, guid: ff690dfb5da8b114a8ed8b3cd4db3597, type: 2}
   materials:
     materialImportMode: 1
     materialName: 0

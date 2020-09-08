@@ -16,6 +16,7 @@ public class PlayerUpgrades : MonoBehaviour
 
     [SerializeField] private int newCapacity = 300;
     [SerializeField] private int newMoveSpeed = 10;
+    [SerializeField] private float newPickupSpeed = 0.5f;
 
     private void Start()
     {
@@ -27,7 +28,6 @@ public class PlayerUpgrades : MonoBehaviour
 
     public void applyUpgrades(int currentLevel, int selectedUpgrade, int upgradePrice)
     {
-        Debug.Log("upgrade price = " + upgradePrice + "current money = " + playerStats.money);
         if (upgradePrice > playerStats.money)
         { return; }
         else if (upgradePrice <= playerStats.money)
@@ -38,8 +38,7 @@ public class PlayerUpgrades : MonoBehaviour
                     switch (selectedUpgrade)
                     {
                         case 0:
-                            Debug.Log("activated first upgrade");
-                            //Paddles = speed upgrade
+                            //Engine = speed upgrade
                             firstUpgrade.SetActive(true);
                             playerController.playerAgent.speed = newMoveSpeed;
                             playerStats.money -= upgradePrice;
