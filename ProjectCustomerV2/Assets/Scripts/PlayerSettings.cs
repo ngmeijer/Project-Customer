@@ -11,8 +11,7 @@ public class PlayerSettings : MonoBehaviour
     public float maxCapacity = 200;
     public int speed = 4;
 
-    public int smallTrash = 20;
-    public int bigTrash = 50;
+    public int trashValue = 20;
 
     public float pickupTime = 2f;
 

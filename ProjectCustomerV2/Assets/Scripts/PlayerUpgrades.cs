@@ -14,6 +14,10 @@ public class PlayerUpgrades : MonoBehaviour
     public GameObject secondUpgrade = null;
     public GameObject thirdUpgrade = null;
 
+    public bool unlockedFirstUpgrade = false;
+    public bool unlockedSecondUpgrade = false;
+    public bool unlockedThirdUpgrade = false;
+
     [SerializeField] private int newCapacity = 300;
     [SerializeField] private int newMoveSpeed = 10;
     [SerializeField] private float newPickupSpeed = 0.5f;
@@ -39,6 +43,7 @@ public class PlayerUpgrades : MonoBehaviour
                     {
                         case 0:
                             //Engine = speed upgrade
+                            unlockedFirstUpgrade = true;
                             firstUpgrade.SetActive(true);
                             playerController.playerAgent.speed = newMoveSpeed;
                             playerStats.money -= upgradePrice;
@@ -46,12 +51,15 @@ public class PlayerUpgrades : MonoBehaviour
                             break;
                         case 1:
                             //Fishnet
+                            unlockedSecondUpgrade = true;
                             secondUpgrade.SetActive(true);
                             playerStats.money -= upgradePrice;
+                            playerSettings.pickupTime = newPickupSpeed;
                             uiManager.updateStats(uiManager.moneyCounter, playerStats.money, false);
                             break;
                         case 2:
                             //Trailer = capacity upgrade
+                            unlockedThirdUpgrade = true;
                             thirdUpgrade.SetActive(true);
                             playerSettings.maxCapacity = newCapacity;
                             playerStats.money -= upgradePrice;

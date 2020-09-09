@@ -1,4 +1,5 @@
-﻿using Microsoft.Unity.VisualStudio.Editor;
+﻿using System;
+using System.Collections;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -11,6 +12,7 @@ public class UIManager : MonoBehaviour
 
     private Animator animator = null;
 
+    [Header("Counters")]
     public TextMeshProUGUI trashCounter = null;
     public TextMeshProUGUI moneyCounter = null;
     public TextMeshProUGUI supportersCounter = null;
@@ -19,10 +21,16 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject interceptorUI = null;
     public TextMeshProUGUI interceptorHealth = null;
 
+    public GameObject upgradeEquippedText = null;
+
     [SerializeField] private GameObject exclamationMark = null;
 
     [SerializeField] private GameObject storeUI = null;
+    [SerializeField] private GameObject UIInactiveWhileInStore = null;
 
+    [SerializeField] private GameObject upgradesPanel = null;
+
+    [Header("Mobile UI")]
     [SerializeField] private TextMeshProUGUI tweetText = null;
     [SerializeField] private GameObject shipFullText = null;
     [SerializeField] private GameObject progressBar = null;
@@ -39,12 +47,25 @@ public class UIManager : MonoBehaviour
 
     public void handleStoreOnEnter()
     {
+        UIInactiveWhileInStore.SetActive(false);
         playerController.enabled = false;
         storeUI.SetActive(true);
     }
 
+    public IEnumerator unlockedUpgradeWarning()
+    {
+        upgradeEquippedText.SetActive(true);
+
+        yield return new WaitForSeconds(2f);
+
+        upgradeEquippedText.SetActive(false);
+
+        yield break;
+    }
+
     public void handleStoreOnExit()
     {
+        UIInactiveWhileInStore.SetActive(true);
         playerController.enabled = true;
         storeUI.SetActive(false);
     }
@@ -78,6 +99,16 @@ public class UIManager : MonoBehaviour
 
         playerStats.supporters = counterAmount;
         counter.text = totalSupporters.ToString();
+    }
+
+    public void showUpgradesPanel()
+    {
+        animator.SetTrigger("ShowUpgrades");
+    }
+
+    public void hideUpgradesPanel()
+    {
+        animator.SetTrigger("HideUpgrades");
     }
 
     public void showTimer(int timeLeft)
@@ -119,5 +150,15 @@ public class UIManager : MonoBehaviour
     {
         Time.timeScale = 1;
         animator.SetTrigger("Resume");
+    }
+
+    public void quitGame()
+    {
+        Application.Quit();
+    }
+
+    public void donateButton()
+    {
+        Application.OpenURL("https://theoceancleanup.com/donate/");
     }
 }

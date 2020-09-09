@@ -27,14 +27,14 @@ public class TrashController : MonoBehaviour
         }
     }
 
-    public IEnumerator handleDeactivation(float pickupTime)
-    {
-        GetComponentInChildren<MeshRenderer>().material = dissolveShader;
+    //public IEnumerator handleDeactivation(float pickupTime)
+    //{
+    //    //GetComponentInChildren<MeshRenderer>().material = dissolveShader;
 
-        yield return new WaitForSeconds(pickupTime);
+    //    yield return new WaitForSeconds(pickupTime);
 
-        gameObject.SetActive(false);
+    //    gameObject.SetActive(false);
 
-        yield break;
-    }
+    //    yield break;
+    //}
 }

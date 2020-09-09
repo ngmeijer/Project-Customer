@@ -5321,6 +5321,10 @@ PrefabInstance:
       propertyPath: exclamationMark
       value: 
       objectReference: {fileID: 1503558302}
+    - target: {fileID: 7826782865142341025, guid: 610d6272e38fd33469ee996af9aad54e, type: 3}
+      propertyPath: m_RootOrder
+      value: 5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 610d6272e38fd33469ee996af9aad54e, type: 3}
 --- !u!224 &1296915087 stripped
@@ -7766,9 +7770,9 @@ Terrain:
   m_TerrainData: {fileID: 15600000, guid: 81157afca88a87a4b9e2086cd564596a, type: 2}
   m_TreeDistance: 5000
   m_TreeBillboardDistance: 50
-  m_TreeCrossFadeLength: 5
+  m_TreeCrossFadeLength: 200
   m_TreeMaximumFullLODCount: 50
-  m_DetailObjectDistance: 80
+  m_DetailObjectDistance: 250
   m_DetailObjectDensity: 1
   m_HeightmapPixelError: 5
   m_SplatMapDistance: 1000
@@ -9436,6 +9440,7 @@ MonoBehaviour:
   thirdUpgrade: {fileID: 822735276224512302}
   newCapacity: 300
   newMoveSpeed: 10
+  newPickupSpeed: 0.5
 --- !u!1 &6532772298109108890
 GameObject:
   m_ObjectHideFlags: 0
@@ -9807,6 +9812,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c3ea14d2ff0b3ed4bbad81a31a94063f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  progress: 0
 --- !u!114 &8915979716496704996
 MonoBehaviour:
   m_ObjectHideFlags: 0

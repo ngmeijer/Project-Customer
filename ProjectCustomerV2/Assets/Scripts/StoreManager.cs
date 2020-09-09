@@ -32,25 +32,49 @@ public class StoreManager : MonoBehaviour
 
     public void buyFirstUpgrade()
     {
-        if (storeSettings.upgradePriceList[0] <= playerStats.money)
+        if (!playerUpgrades.unlockedFirstUpgrade)
         {
-            playerUpgrades.applyUpgrades(currentLevel, 0, storeSettings.upgradePriceList[0]);
+            if (storeSettings.upgradePriceList[0] <= playerStats.money)
+            {
+                playerUpgrades.applyUpgrades(currentLevel, 0, storeSettings.upgradePriceList[0]);
+            }
+        }
+        else
+        {
+            Debug.Log("already bought upgrade");
+            StartCoroutine(uiManager.unlockedUpgradeWarning());
         }
     }
 
     public void buySecondUpgrade()
     {
-        if (storeSettings.upgradePriceList[1] <= playerStats.money)
+        if (!playerUpgrades.unlockedSecondUpgrade)
         {
-            playerUpgrades.applyUpgrades(currentLevel, 1, storeSettings.upgradePriceList[1]);
+            if (storeSettings.upgradePriceList[1] <= playerStats.money)
+            {
+                playerUpgrades.applyUpgrades(currentLevel, 1, storeSettings.upgradePriceList[1]);
+            }
+        }
+        else
+        {
+            Debug.Log("already bought upgrade");
+            StartCoroutine(uiManager.unlockedUpgradeWarning());
         }
     }
 
     public void buyThirdUpgrade()
     {
-        if (storeSettings.upgradePriceList[2] <= playerStats.money)
+        if (!playerUpgrades.unlockedThirdUpgrade)
         {
-            playerUpgrades.applyUpgrades(currentLevel, 2, storeSettings.upgradePriceList[2]);
+            if (storeSettings.upgradePriceList[2] <= playerStats.money)
+            {
+                playerUpgrades.applyUpgrades(currentLevel, 2, storeSettings.upgradePriceList[2]);
+            }
+        }
+        else
+        {
+            Debug.Log("already bought upgrade");
+            StartCoroutine(uiManager.unlockedUpgradeWarning());
         }
     }
 
@@ -60,7 +84,7 @@ public class StoreManager : MonoBehaviour
         uiManager.updateStats(uiManager.moneyCounter, playerStats.money, false);
 
         supporterTracker.calculateSupportersOnTrashDep((int)playerStats.trashAmount);
-        uiManager.updateSupporters(uiManager.supportersCounter, playerStats.supporters);
+        //uiManager.updateSupporters(uiManager.supportersCounter, playerStats.supporters);
         playerStats.trashAmount = 0;
         uiManager.updateStats(uiManager.trashCounter, (int)playerStats.trashAmount, false);
     }

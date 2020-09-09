@@ -10,7 +10,9 @@ public class PlayerInventory : MonoBehaviour
     private AchievementTracker achievementTracker = null;
 
     public float progress;
-    private float timePresent = 0;
+    [SerializeField] private float timePresent = 0;
+    private TrashController instance;
+    private Coroutine pickupCoroutine;
 
     private void Start()
     {
@@ -20,61 +22,51 @@ public class PlayerInventory : MonoBehaviour
         achievementTracker = FindObjectOfType<AchievementTracker>();
     }
 
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.gameObject.CompareTag("SmallTrash") || other.gameObject.CompareTag("Trash"))
-        {
-            if ((playerStats.trashAmount + playerSettings.smallTrash) <= playerSettings.maxCapacity)
-            {
-                //achievementTracker.newTrashCollectedRecord(playerSettings.smallTrash);
-                playerStats.trashAmount += playerSettings.smallTrash;
-                uiManager.updateStats(uiManager.trashCounter, (int)playerStats.trashAmount, false);
-            }
-            else
-            {
-                playerStats.trashAmount = playerSettings.maxCapacity;
-                uiManager.updateStats(uiManager.trashCounter, (int)playerStats.trashAmount, false);
-                uiManager.handleShipFullNotif(true);
-            }
-        }
-
-        if (other.gameObject.CompareTag("BigTrash"))
-        {
-            TrashController instance = other.gameObject.GetComponent<TrashController>();
-            StartCoroutine(instance.handleDeactivation(playerSettings.pickupTime));
-
-            if ((playerStats.trashAmount + playerSettings.bigTrash) <= playerSettings.maxCapacity)
-            {
-                //achievementTracker.newTrashCollectedRecord(playerSettings.bigTrash);
-                playerStats.trashAmount += playerSettings.bigTrash;
-                uiManager.updateStats(uiManager.trashCounter, (int)playerStats.trashAmount, false);
-            }
-            else
-            {
-                playerStats.trashAmount = playerSettings.maxCapacity;
-                uiManager.updateStats(uiManager.trashCounter, (int)playerStats.trashAmount, false);
-                uiManager.handleShipFullNotif(true);
-            }
-        }
-    }
-
     private void OnTriggerStay(Collider other)
     {
         if (other.gameObject.CompareTag("Trash"))
         {
-            TrashController instance = other.gameObject.GetComponent<TrashController>();
-            StartCoroutine(instance.handleDeactivation(playerSettings.pickupTime));
-
-            timePresent += Time.deltaTime;
-            progress = timePresent / playerSettings.pickupTime;
-
-            uiManager.showProgressBar(progress);
-
-            if (progress >= 1)
+            if ((playerStats.trashAmount + playerSettings.trashValue) <= playerSettings.maxCapacity)
             {
-                timePresent = 0;
-                uiManager.hideProgressbar();
+                timePresent += Time.deltaTime;
+                progress = timePresent / playerSettings.pickupTime;
+
+                uiManager.showProgressBar(progress);
+
+                if (progress >= 1)
+                {
+                    achievementTracker.newTrashCollectedRecord(playerSettings.trashValue);
+                    playerStats.trashAmount += playerSettings.trashValue;
+                    other.gameObject.SetActive(false);
+                    uiManager.hideProgressbar();
+                    timePresent = 0;
+                }
+
+                uiManager.updateStats(uiManager.trashCounter, (int)playerStats.trashAmount, false);
             }
+            else
+            {
+                playerStats.trashAmount = playerSettings.maxCapacity;
+            }
+        }
+        else
+        {
+            uiManager.hideProgressbar();
+            timePresent = 0;
+        }
+
+        if(playerStats.trashAmount >= playerSettings.maxCapacity)
+        {
+            uiManager.handleShipFullNotif(true);
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.CompareTag("Trash"))
+        {
+            uiManager.hideProgressbar();
+            timePresent = 0;
         }
     }
 }

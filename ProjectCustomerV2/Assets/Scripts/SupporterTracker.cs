@@ -24,14 +24,6 @@ public class SupporterTracker : MonoBehaviour
     private void Update()
     {
         addNewSupporters();
-
-
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            tweet = socialMedia.sendOutPositiveTweet();
-
-            uiManager.showTweet(tweet);
-        }
     }
 
     private void addNewSupporters()

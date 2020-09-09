@@ -81,7 +81,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8640fa143af90654f8893bad44fde41a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dissolveShader: {fileID: 0}
+  dissolveShader: {fileID: 2100000, guid: c2e9bb1cd53365340b8d93d3bf084f4d, type: 2}
   floatSpeed: 0
 --- !u!1 &8152594737730817486
 GameObject:

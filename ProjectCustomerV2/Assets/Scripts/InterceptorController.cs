@@ -35,30 +35,18 @@ public class InterceptorController : MonoBehaviour
             uiManager.updateStats(uiManager.interceptorHealth, interceptorSettings.health, true);
             uiManager.handleInterceptorOnEnter();
 
-            if(interceptorSettings.currentTrashAmount >= interceptorSettings.maxTrashAmount)
+            if (interceptorSettings.currentTrashAmount >= interceptorSettings.maxTrashAmount)
             {
                 uiManager.handleInterceptorExclamation(true);
             }
         }
 
-        if (other.gameObject.CompareTag("SmallTrash") || other.gameObject.CompareTag("BigTrash"))
+        if (other.gameObject.CompareTag("SmallTrash"))
         {
-            TrashController instance = other.gameObject.GetComponent<TrashController>();
-            StartCoroutine(instance.handleDeactivation(0f));
-
             if (interceptorSettings.currentTrashAmount < interceptorSettings.maxTrashAmount)
             {
-                if (other.gameObject.CompareTag("SmallTrash"))
-                {
-                    interceptorSettings.currentTrashAmount += playerSettings.smallTrash;
-                    trackCapacity(playerSettings.smallTrash);
-                }
-
-                if (other.gameObject.CompareTag("BigTrash"))
-                {
-                    interceptorSettings.currentTrashAmount += playerSettings.bigTrash;
-                    trackCapacity(playerSettings.bigTrash);
-                }
+                interceptorSettings.currentTrashAmount += playerSettings.trashValue;
+                trackCapacity(playerSettings.trashValue);
             }
             else
             {
@@ -83,8 +71,6 @@ public class InterceptorController : MonoBehaviour
         float percentFilled = interceptorSettings.currentTrashAmount / interceptorSettings.maxTrashAmount;
 
         percentFilled *= 100;
-
-        Debug.Log("percent filled " + percentFilled);
 
         if (percentFilled <= 25)
         {
