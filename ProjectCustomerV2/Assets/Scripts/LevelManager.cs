@@ -9,11 +9,7 @@ public class LevelManager : MonoBehaviour
     private TimeTracker timeTracker = null;
     private AsyncOperation async;
 
-    public int timeTimerIsVisible = 30;
-
     public int timeForNewLevel = 300;
-
-    [SerializeField] private Button newSceneButton = null;
 
     void Start()
     {

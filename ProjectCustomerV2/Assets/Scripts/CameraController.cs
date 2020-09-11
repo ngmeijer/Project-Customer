@@ -13,6 +13,7 @@ public class CameraController : MonoBehaviour
     private void Start()
     {
         cameraSettings = GetComponent<CameraSettings>();
+
     }
 
     private void Update()
@@ -32,28 +33,12 @@ public class CameraController : MonoBehaviour
 
         if (cameraSettings.moveOnZ)
         {
-            handleCameraZMovement();
+            handleCameraMovement();
         }
     }
 
-    private void handleCameraZMovement()
+    private void handleCameraMovement()
     {
-        //if ((cameraSettings.offset.z >= cameraSettings.minZ) && (cameraSettings.offset.z <= cameraSettings.maxZ))
-        //{
-        //    transform.position = new Vector3(transform.position.x, transform.position.y, cameraSettings.offset.z);
-
-        //    if (!cameraSettings.invert)
-        //    {
-        //        cameraSettings.offset.z += scrollValue * cameraSettings.scrollSpeed
-        //                            * cameraSettings.scrollMultiplier * Time.deltaTime;
-        //    }
-        //    else
-        //    {
-        //        cameraSettings.offset.z += scrollValue * -cameraSettings.scrollSpeed
-        //                            * cameraSettings.scrollMultiplier * Time.deltaTime;
-        //    }
-        //}
-
         Vector3 position = transform.position;
 
         if (Input.mousePosition.y >= Screen.height - cameraSettings.panBorderTreshold)
@@ -66,39 +51,40 @@ public class CameraController : MonoBehaviour
             position.z -= cameraSettings.panSpeed * Time.deltaTime;
         }
 
-        //if (transform.position.z < cameraSettings.minZ)
-        //{
-        //    position = new Vector3(transform.position.x, transform.position.y, cameraSettings.minZ);
-        //}
+        if (Input.mousePosition.x >= Screen.width - cameraSettings.panBorderTreshold)
+        {
+            position.x += cameraSettings.panSpeed * Time.deltaTime;
+        }
 
-        //if (transform.position.z > cameraSettings.maxZ)
-        //{
-        //    position = new Vector3(transform.position.x, transform.position.y, cameraSettings.maxZ);
-        //}
+        if (Input.mousePosition.x <= cameraSettings.panBorderTreshold)
+        {
+            position.x -= cameraSettings.panSpeed * Time.deltaTime;
+        }
 
-        position.z = Mathf.Clamp(position.z, cameraSettings.minZ, cameraSettings.maxZ);
+        position.x = Mathf.Clamp(position.x, cameraSettings.minBorders.x, cameraSettings.maxBorders.x);
+        position.z = Mathf.Clamp(position.z, cameraSettings.minBorders.y, cameraSettings.maxBorders.y);
+        position.y = Mathf.Clamp(position.y, cameraSettings.minCameraHeight, cameraSettings.maxCameraHeight);
+
+        position.y += scrollValue * -cameraSettings.scrollSpeed * cameraSettings.scrollMultiplier * Time.deltaTime;
 
         transform.position = position;
     }
 
     private void handleCameraZoom()
     {
-        if ((cameraSettings.offset.y < cameraSettings.maxCameraHeight)
-            && (cameraSettings.offset.y > cameraSettings.minCameraHeight))
+        if ((cameraSettings.offset.y <= cameraSettings.maxCameraHeight)
+            && (cameraSettings.offset.y >= cameraSettings.minCameraHeight))
         {
             cameraSettings.offset.y += scrollValue * -cameraSettings.scrollSpeed
                                     * cameraSettings.scrollMultiplier * Time.deltaTime;
         }
-        else
+        else if (cameraSettings.offset.y < cameraSettings.minCameraHeight)
         {
-            if (cameraSettings.offset.y > cameraSettings.maxCameraHeight)
-            {
-                cameraSettings.offset.y = cameraSettings.maxCameraHeight - 0.5f;
-            }
-            else if (cameraSettings.offset.y < cameraSettings.minCameraHeight)
-            {
-                cameraSettings.offset.y = cameraSettings.minCameraHeight + 0.5f;
-            }
+            cameraSettings.offset.y = cameraSettings.minCameraHeight + 0.001f;
+        }
+        else if (cameraSettings.offset.y > cameraSettings.maxCameraHeight)
+        {
+            cameraSettings.offset.y = cameraSettings.maxCameraHeight - 0.001f;
         }
     }
 }

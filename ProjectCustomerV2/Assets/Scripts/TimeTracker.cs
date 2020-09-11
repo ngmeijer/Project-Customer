@@ -6,29 +6,33 @@ public class TimeTracker : MonoBehaviour
 {
     private LevelManager levelManager = null;
     private UIManager uiManager = null;
+    private ScoreBoard scoreBoard = null;
+    private PlayerStats playerStats = null;
 
     public float timer = 0;
-    
+
+    public bool startTime = false;
 
     private void Start()
     {
         uiManager = FindObjectOfType<UIManager>();
         levelManager = GetComponent<LevelManager>();
+        scoreBoard = FindObjectOfType<ScoreBoard>();
+        playerStats = FindObjectOfType<PlayerStats>();
     }
 
     private void Update()
     {
-        timer += Time.deltaTime;
+        if (startTime)
+            timer += Time.deltaTime;
 
-        if(timer > (levelManager.timeForNewLevel - levelManager.timeTimerIsVisible))
+        int timeLeft = levelManager.timeForNewLevel - (int)timer;
+
+        uiManager.showTimer(timeLeft);
+
+        if (timer >= levelManager.timeForNewLevel)
         {
-            int timeLeft = levelManager.timeForNewLevel - (int)timer;
-            uiManager.showTimer(timeLeft);
-
-            if (timer >= levelManager.timeForNewLevel)
-            {
-                levelManager.ActivateScene();
-            }
+            scoreBoard.handleScoreboard(true, playerStats.totalTrashCollected);
         }
     }
 }

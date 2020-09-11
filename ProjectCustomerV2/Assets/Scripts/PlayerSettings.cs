@@ -15,6 +15,9 @@ public class PlayerSettings : MonoBehaviour
 
     public float pickupTime = 2f;
 
+    public bool lockMovementWhileTrashing = true;
+    public bool canCollectTrash = true;
+
     #endregion
 
     private void Start()

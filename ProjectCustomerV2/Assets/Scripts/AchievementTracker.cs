@@ -28,22 +28,57 @@ public class AchievementTracker : MonoBehaviour
     [SerializeField] private int upgradeRecord;
     [SerializeField] private int levelRecord;
 
+    private SocialMedia socialMedia = null;
+    private UIManager uiManager = null;
+
+    private bool trashRec1Unlocked;
+    private bool trashRec2Unlocked;
+    private bool trashRec3Unlocked;
+    private bool trashRec4Unlocked;
+
     #endregion
+
+    private void Start()
+    {
+        socialMedia = GetComponent<SocialMedia>();
+        uiManager = FindObjectOfType<UIManager>();
+    }
 
     public void newTrashCollectedRecord(int newTrashRecord)
     {
         trashRecord += newTrashRecord;
 
-        if (trashRecord >= 25)
-        {
-            Debug.Log("New record! 25 trash collected");
-        }
-        if (trashRecord >= trashRecords[1])
-        { Debug.Log("New record! 100 trash collected"); }
-        if (trashRecord >= trashRecords[2])
-        { Debug.Log("New record! 500 trash collected"); }
-        if (trashRecord >= trashRecords[3])
-        { Debug.Log("New record! 1000 trash collected"); }
+        if (!trashRec1Unlocked)
+            if (trashRecord >= 25 && trashRecord < trashRecords[1])
+            {
+                uiManager.newTweet();
+                Debug.Log("New record! 25 trash collected");
+                trashRec1Unlocked = true;
+            }
+
+        if (!trashRec2Unlocked)
+            if (trashRecord >= trashRecords[1] && trashRecord < trashRecords[2])
+            {
+                uiManager.newTweet();
+                Debug.Log("New record! 100 trash collected");
+                trashRec2Unlocked = true;
+            }
+
+        if (!trashRec3Unlocked)
+            if (trashRecord >= trashRecords[2] && trashRecord < trashRecords[3])
+            {
+                uiManager.newTweet();
+                Debug.Log("New record! 500 trash collected");
+                trashRec3Unlocked = true;
+            }
+
+        if (!trashRec4Unlocked)
+            if (trashRecord >= trashRecords[3])
+            {
+                uiManager.newTweet();
+                Debug.Log("New record! 1000 trash collected");
+                trashRec4Unlocked = true;
+            }
     }
 
     public void newShipsKilledRecord(int newShipsKilledRecord)

@@ -9,6 +9,7 @@ public class PlayerUpgrades : MonoBehaviour
     private PlayerController playerController = null;
     private PlayerStats playerStats = null;
     private UIManager uiManager = null;
+    private InterceptorController[] interceptorController = null;
 
     public GameObject firstUpgrade = null;
     public GameObject secondUpgrade = null;
@@ -36,6 +37,9 @@ public class PlayerUpgrades : MonoBehaviour
         { return; }
         else if (upgradePrice <= playerStats.money)
         {
+            playerStats.money -= upgradePrice;
+            uiManager.updateStats(uiManager.moneyCounter, playerStats.money, false, false);
+
             switch (currentLevel)
             {
                 case 0:
@@ -46,24 +50,19 @@ public class PlayerUpgrades : MonoBehaviour
                             unlockedFirstUpgrade = true;
                             firstUpgrade.SetActive(true);
                             playerController.playerAgent.speed = newMoveSpeed;
-                            playerStats.money -= upgradePrice;
-                            uiManager.updateStats(uiManager.moneyCounter, playerStats.money, false);
+
                             break;
                         case 1:
                             //Fishnet
                             unlockedSecondUpgrade = true;
                             secondUpgrade.SetActive(true);
-                            playerStats.money -= upgradePrice;
                             playerSettings.pickupTime = newPickupSpeed;
-                            uiManager.updateStats(uiManager.moneyCounter, playerStats.money, false);
                             break;
                         case 2:
                             //Trailer = capacity upgrade
                             unlockedThirdUpgrade = true;
                             thirdUpgrade.SetActive(true);
                             playerSettings.maxCapacity = newCapacity;
-                            playerStats.money -= upgradePrice;
-                            uiManager.updateStats(uiManager.moneyCounter, playerStats.money, false);
                             break;
                     }
                     break;
@@ -71,10 +70,24 @@ public class PlayerUpgrades : MonoBehaviour
                     switch (selectedUpgrade)
                     {
                         case 0:
+                            //Engine = speed upgrade
+                            unlockedFirstUpgrade = true;
+                            firstUpgrade.SetActive(true);
+                            playerController.playerAgent.speed = newMoveSpeed;
                             break;
                         case 1:
+                            //Shiny = reliability upgrade
+                            unlockedSecondUpgrade = true;
+                            interceptorController = FindObjectsOfType<InterceptorController>();
+                            for (int i = 0; i < interceptorController.Length; i++)
+                                interceptorController[i].applyUpgradeMaterial();
+                            playerSettings.maxCapacity = newCapacity;
                             break;
                         case 2:
+                            //Box = Capacity upgrade
+                            unlockedThirdUpgrade = true;
+                            thirdUpgrade.SetActive(true);
+                            playerSettings.maxCapacity = newCapacity;
                             break;
                     }
                     break;

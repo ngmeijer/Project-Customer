@@ -6,6 +6,7 @@ public class PlayerInventory : MonoBehaviour
 {
     private PlayerSettings playerSettings = null;
     private PlayerStats playerStats = null;
+    private PlayerController playerController = null;
     private UIManager uiManager = null;
     private AchievementTracker achievementTracker = null;
 
@@ -18,46 +19,54 @@ public class PlayerInventory : MonoBehaviour
     {
         playerStats = GetComponent<PlayerStats>();
         playerSettings = GetComponent<PlayerSettings>();
+        playerController = GetComponent<PlayerController>();
         uiManager = FindObjectOfType<UIManager>();
         achievementTracker = FindObjectOfType<AchievementTracker>();
     }
 
     private void OnTriggerStay(Collider other)
     {
-        if (other.gameObject.CompareTag("Trash"))
+        if (playerSettings.canCollectTrash)
         {
-            if ((playerStats.trashAmount + playerSettings.trashValue) <= playerSettings.maxCapacity)
+            if (other.gameObject.CompareTag("Trash"))
             {
-                timePresent += Time.deltaTime;
-                progress = timePresent / playerSettings.pickupTime;
-
-                uiManager.showProgressBar(progress);
-
-                if (progress >= 1)
+                if ((playerStats.trashAmount + playerSettings.trashValue) <= playerSettings.maxCapacity)
                 {
-                    achievementTracker.newTrashCollectedRecord(playerSettings.trashValue);
-                    playerStats.trashAmount += playerSettings.trashValue;
-                    other.gameObject.SetActive(false);
-                    uiManager.hideProgressbar();
-                    timePresent = 0;
-                }
+                    timePresent += Time.deltaTime;
+                    progress = timePresent / playerSettings.pickupTime;
 
-                uiManager.updateStats(uiManager.trashCounter, (int)playerStats.trashAmount, false);
+                    uiManager.showProgressBar(progress);
+
+                    //playerController.enabled = false;
+
+                    if (progress >= 1)
+                    {
+                        //if (playerSettings.lockMovementWhileTrashing)
+                        //    playerController.enabled = true;
+                        achievementTracker.newTrashCollectedRecord(playerSettings.trashValue);
+                        playerStats.trashAmount += playerSettings.trashValue;
+                        other.gameObject.SetActive(false);
+                        uiManager.hideProgressbar();
+                        timePresent = 0;
+                    }
+
+                    uiManager.updateStats(uiManager.trashCounter, (int)playerStats.trashAmount, false, true);
+                }
+                else
+                {
+                    playerStats.trashAmount = playerSettings.maxCapacity;
+                }
             }
             else
             {
-                playerStats.trashAmount = playerSettings.maxCapacity;
+                uiManager.hideProgressbar();
+                timePresent = 0;
             }
-        }
-        else
-        {
-            uiManager.hideProgressbar();
-            timePresent = 0;
-        }
 
-        if(playerStats.trashAmount >= playerSettings.maxCapacity)
-        {
-            uiManager.handleShipFullNotif(true);
+            if (playerStats.trashAmount >= playerSettings.maxCapacity)
+            {
+                //uiManager.handleShipFullNotif(true);
+            }
         }
     }
 

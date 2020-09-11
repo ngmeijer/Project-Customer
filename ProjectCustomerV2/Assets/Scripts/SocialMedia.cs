@@ -6,7 +6,9 @@ public class SocialMedia : MonoBehaviour
 {
     private UIManager uiManager = null;
 
+    [TextArea(1, 6)]
     [SerializeField] private List<string> positiveTweet = new List<string>();
+    [TextArea(1, 6)]
     [SerializeField] private List<string> negativeTweet = new List<string>();
 
     public int newPostTreshhold = 100;

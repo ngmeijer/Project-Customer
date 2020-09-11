@@ -11,7 +11,8 @@ GameObject:
   - component: {fileID: 8023557317349943815}
   - component: {fileID: 2345098053658884938}
   - component: {fileID: 797329029084123357}
-  - component: {fileID: 4346379016360605262}
+  - component: {fileID: -5846686162870268602}
+  - component: {fileID: -4951125321402308367}
   m_Layer: 0
   m_Name: Trash1
   m_TagString: Trash
@@ -42,7 +43,7 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7211026554335359165}
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 2.0734873, y: 0.6619866, z: 1.962441}
@@ -66,10 +67,29 @@ NavMeshAgent:
   m_AutoBraking: 1
   m_AutoRepath: 1
   m_Height: 2
-  m_BaseOffset: 0.25
+  m_BaseOffset: 0.5
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 1
---- !u!114 &4346379016360605262
+--- !u!95 &-5846686162870268602
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7211026554335359165}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 3a64ae6edc327394aba424905905eaca, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &-4951125321402308367
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -81,8 +101,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8640fa143af90654f8893bad44fde41a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dissolveShader: {fileID: 2100000, guid: c2e9bb1cd53365340b8d93d3bf084f4d, type: 2}
-  floatSpeed: 0
+  dissolveShader: {fileID: 0}
+  target: {fileID: 4153484474799502526, guid: 8873d0f29c6428544af1068e1196dca5, type: 3}
+  floatSpeed: 5
 --- !u!1 &8152594737730817486
 GameObject:
   m_ObjectHideFlags: 0

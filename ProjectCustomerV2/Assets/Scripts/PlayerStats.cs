@@ -25,6 +25,7 @@ public class PlayerStats : MonoBehaviour
     public float trashAmount = 0;
     public int money = 0;
     public int supporters = 0;
+    public int totalTrashCollected = 0;
 
     #endregion
 

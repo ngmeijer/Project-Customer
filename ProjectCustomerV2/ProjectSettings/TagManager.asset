@@ -9,6 +9,9 @@ TagManager:
   - Interceptor
   - Terrain
   - Trash
+  - TutorialCamera
+  - EndPoint
+  - Fish
   layers:
   - Default
   - TransparentFX

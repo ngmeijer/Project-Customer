@@ -81,11 +81,14 @@ public class StoreManager : MonoBehaviour
     public void emptyTrash()
     {
         playerStats.calculateMoney((int)playerStats.trashAmount);
-        uiManager.updateStats(uiManager.moneyCounter, playerStats.money, false);
+        uiManager.updateStats(uiManager.moneyCounter, playerStats.money, false, false);
 
-        supporterTracker.calculateSupportersOnTrashDep((int)playerStats.trashAmount);
+        //supporterTracker.calculateSupportersOnTrashDep((int)playerStats.trashAmount);
         //uiManager.updateSupporters(uiManager.supportersCounter, playerStats.supporters);
+
+        playerStats.totalTrashCollected += (int)playerStats.trashAmount;
         playerStats.trashAmount = 0;
-        uiManager.updateStats(uiManager.trashCounter, (int)playerStats.trashAmount, false);
+
+        uiManager.updateStats(uiManager.trashCounter, (int)playerStats.trashAmount, false, false);
     }
 }

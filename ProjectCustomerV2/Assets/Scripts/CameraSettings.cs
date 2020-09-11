@@ -17,8 +17,8 @@ public class CameraSettings : MonoBehaviour
     public Vector3 offset;
     public Vector3 rotateValue;
 
-    public int minZ;
-    public int maxZ;
+    public Vector2 minBorders;
+    public Vector2 maxBorders;
 
     public float cameraHeight = 20;
     public float maxCameraHeight = 50;

@@ -7,23 +7,34 @@ public class TrashController : MonoBehaviour
 {
     [SerializeField] private Material dissolveShader = null;
 
+    private TrashGeneratorSettings trashGeneratorSettings = null;
+
     private NavMeshAgent trashAgent = null;
 
-    private GameObject target = null;
+    public GameObject target = null;
 
-    [SerializeField] private float floatSpeed;
+    [SerializeField] private float floatSpeed = 5;
 
     private void OnEnable()
     {
+        trashGeneratorSettings = FindObjectOfType<TrashGeneratorSettings>();
+
         trashAgent = GetComponent<NavMeshAgent>();
 
-        trashAgent.speed = floatSpeed;
+        trashAgent.speed = 5;
 
-        target = GameObject.FindGameObjectWithTag("Interceptor");
-
-        if (target != null)
+        if ((target != null) && (trashAgent.isActiveAndEnabled) && (trashGeneratorSettings.floatToTarget))
         {
             trashAgent.SetDestination(target.transform.position);
+        }
+        else trashAgent.enabled = true;
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("EndPoint"))
+        {
+            this.gameObject.SetActive(false);
         }
     }
 

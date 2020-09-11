@@ -17,6 +17,8 @@ public class TrashGeneratorSettings : MonoBehaviour
 
     public List<GameObject> trashPrefabs = new List<GameObject>();
 
+    public bool floatToTarget = false;
+
     #endregion
 
     private void OnDrawGizmos()

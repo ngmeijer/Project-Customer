@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -11,8 +12,12 @@ public class InterceptorController : MonoBehaviour
     private InterceptorSettings interceptorSettings = null;
 
     [SerializeField] private Material panelMaterial = null;
+    [SerializeField] private Material upgradedMaterial = null;
+
+    [SerializeField] private GameObject objectToChangeMat;
 
     private int lightLevel = 0;
+    [SerializeField] private int selectedInterceptor;
 
     private void Start()
     {
@@ -22,6 +27,7 @@ public class InterceptorController : MonoBehaviour
         supporterTracker = FindObjectOfType<SupporterTracker>();
         interceptorSettings = GetComponent<InterceptorSettings>();
 
+        trackCapacity(interceptorSettings.currentTrashAmount);
         //Base colour
         panelMaterial.SetColor("Color_B5409964", interceptorSettings.lightColours[0]);
         //Emission colour
@@ -32,21 +38,20 @@ public class InterceptorController : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            uiManager.updateStats(uiManager.interceptorHealth, interceptorSettings.health, true);
-            uiManager.handleInterceptorOnEnter();
+            float healthInPercentage = interceptorSettings.health / interceptorSettings.maxHealth;
+            uiManager.showInterceptorBars(selectedInterceptor, interceptorSettings.health, healthInPercentage);
 
-            if (interceptorSettings.currentTrashAmount >= interceptorSettings.maxTrashAmount)
-            {
-                uiManager.handleInterceptorExclamation(true);
-            }
+            float trashInPercentage = interceptorSettings.currentTrashAmount / interceptorSettings.maxTrashAmount;
+            uiManager.showInterceptorBars(selectedInterceptor, interceptorSettings.currentTrashAmount, trashInPercentage);
         }
 
-        if (other.gameObject.CompareTag("SmallTrash"))
+        if (other.gameObject.CompareTag("Trash"))
         {
             if (interceptorSettings.currentTrashAmount < interceptorSettings.maxTrashAmount)
             {
                 interceptorSettings.currentTrashAmount += playerSettings.trashValue;
-                trackCapacity(playerSettings.trashValue);
+                trackCapacity(interceptorSettings.currentTrashAmount);
+                other.gameObject.SetActive(false);
             }
             else
             {
@@ -55,19 +60,30 @@ public class InterceptorController : MonoBehaviour
         }
     }
 
+    public void takeDamage(int damage)
+    {
+        if (interceptorSettings.health > 0)
+            interceptorSettings.health -= damage;
+        else interceptorSettings.health = 0;
+    }
+
     private void OnTriggerExit(Collider other)
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            uiManager.handleInterceptorOnExit();
+            uiManager.handleInterceptorOnExit(selectedInterceptor);
             uiManager.handleInterceptorExclamation(false);
         }
     }
 
-    private void trackCapacity(int incremention)
+    public void applyUpgradeMaterial()
     {
-        interceptorSettings.currentTrashAmount += incremention;
+        Renderer renderer = objectToChangeMat.GetComponent<MeshRenderer>();
+        renderer.material = upgradedMaterial;
+    }
 
+    private void trackCapacity(float trashAmount)
+    {
         float percentFilled = interceptorSettings.currentTrashAmount / interceptorSettings.maxTrashAmount;
 
         percentFilled *= 100;
@@ -78,15 +94,20 @@ public class InterceptorController : MonoBehaviour
         }
         else if (percentFilled > 25 && percentFilled <= 50)
         {
-            lightLevel++;
+            lightLevel = 1;
         }
         else if (percentFilled > 50 && percentFilled <= 75)
         {
-            lightLevel++;
+            lightLevel = 2;
         }
         else if (percentFilled > 75 && percentFilled <= 100)
         {
-            lightLevel++;
+            lightLevel = 3;
+        }
+
+        if (percentFilled > 90)
+        {
+            uiManager.handleInterceptorExclamation(true);
         }
 
         switch (lightLevel)
@@ -112,18 +133,35 @@ public class InterceptorController : MonoBehaviour
 
     public void emptyTrash()
     {
-        playerStats.calculateMoney((int)playerStats.trashAmount);
-        uiManager.updateStats(uiManager.moneyCounter, playerStats.money, false);
+        if ((interceptorSettings.currentTrashAmount > 0) && (playerStats.trashAmount < playerSettings.maxCapacity))
+        {
+            float trashTaken = playerStats.trashAmount + interceptorSettings.currentTrashAmount;
 
-        supporterTracker.calculateSupportersOnTrashDep((int)playerStats.trashAmount);
-        uiManager.updateSupporters(uiManager.supportersCounter, playerStats.supporters);
-        playerStats.trashAmount = 0;
-        uiManager.updateStats(uiManager.trashCounter, (int)playerStats.trashAmount, false);
+            if (playerStats.trashAmount + trashTaken <= playerSettings.maxCapacity)
+            {
+                playerStats.trashAmount += trashTaken;
+                playerStats.totalTrashCollected += (int)trashTaken;
+            }
+            else playerStats.trashAmount = playerSettings.maxCapacity;
+
+            uiManager.updateStats(uiManager.trashCounter, playerStats.trashAmount, false, true);
+
+            interceptorSettings.currentTrashAmount -= trashTaken;
+            if (interceptorSettings.currentTrashAmount < 0)
+                interceptorSettings.currentTrashAmount = 0;
+
+            uiManager.showInterceptorBars(selectedInterceptor, interceptorSettings.health, interceptorSettings.currentTrashAmount);
+            trackCapacity(interceptorSettings.currentTrashAmount);
+        }
+        else
+        {
+            Debug.Log("interceptor is empty");
+        }
     }
 
     public void repairInterceptor()
     {
         interceptorSettings.health = interceptorSettings.maxHealth;
-        uiManager.updateStats(uiManager.interceptorHealth, interceptorSettings.health, true);
+        uiManager.showInterceptorBars(selectedInterceptor, interceptorSettings.health, interceptorSettings.currentTrashAmount);
     }
 }

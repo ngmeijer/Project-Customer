@@ -92,7 +92,7 @@ GameObject:
   - component: {fileID: 7850780839376233263}
   - component: {fileID: 4469269077023293124}
   - component: {fileID: 4391096660797962931}
-  - component: {fileID: 3643144853726515418}
+  - component: {fileID: -4519795672158452757}
   m_Layer: 0
   m_Name: Trash6
   m_TagString: Trash
@@ -123,7 +123,7 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7473797492082407829}
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 2.2297401, y: 0.5098505, z: 2.4066277}
@@ -147,10 +147,10 @@ NavMeshAgent:
   m_AutoBraking: 1
   m_AutoRepath: 1
   m_Height: 2
-  m_BaseOffset: 0
+  m_BaseOffset: 0.5
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 1
---- !u!114 &3643144853726515418
+--- !u!114 &-4519795672158452757
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -162,5 +162,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8640fa143af90654f8893bad44fde41a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dissolveShader: {fileID: 2100000, guid: c2e9bb1cd53365340b8d93d3bf084f4d, type: 2}
-  floatSpeed: 0
+  dissolveShader: {fileID: 0}
+  target: {fileID: 4153484474799502526, guid: 8873d0f29c6428544af1068e1196dca5, type: 3}
+  floatSpeed: 5
