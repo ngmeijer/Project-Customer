@@ -60,13 +60,6 @@ public class InterceptorController : MonoBehaviour
         }
     }
 
-    public void takeDamage(int damage)
-    {
-        if (interceptorSettings.health > 0)
-            interceptorSettings.health -= damage;
-        else interceptorSettings.health = 0;
-    }
-
     private void OnTriggerExit(Collider other)
     {
         if (other.gameObject.CompareTag("Player"))
@@ -74,6 +67,13 @@ public class InterceptorController : MonoBehaviour
             uiManager.handleInterceptorOnExit(selectedInterceptor);
             uiManager.handleInterceptorExclamation(false);
         }
+    }
+
+    public void takeDamage(int damage)
+    {
+        if (interceptorSettings.health > 0)
+            interceptorSettings.health -= damage;
+        else interceptorSettings.health = 0;
     }
 
     public void applyUpgradeMaterial()
@@ -153,15 +153,13 @@ public class InterceptorController : MonoBehaviour
             uiManager.showInterceptorBars(selectedInterceptor, interceptorSettings.health, interceptorSettings.currentTrashAmount);
             trackCapacity(interceptorSettings.currentTrashAmount);
         }
-        else
-        {
-            Debug.Log("interceptor is empty");
-        }
     }
 
     public void repairInterceptor()
     {
         interceptorSettings.health = interceptorSettings.maxHealth;
         uiManager.showInterceptorBars(selectedInterceptor, interceptorSettings.health, interceptorSettings.currentTrashAmount);
+        Debug.Log("trash amount: " + interceptorSettings.currentTrashAmount);
+        Debug.Log("health amount: " + interceptorSettings.health);
     }
 }

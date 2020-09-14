@@ -7,7 +7,6 @@ using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
-    private TrashGenerator trashGenerator = null;
     private PlayerController playerController = null;
     private PlayerStats playerStats = null;
     private PlayerSettings playerSettings = null;
@@ -22,18 +21,13 @@ public class UIManager : MonoBehaviour
     public TextMeshProUGUI supportersCounter = null;
     public TextMeshProUGUI timer = null;
 
-    [SerializeField] private GameObject interceptorUI = null;
-    public TextMeshProUGUI interceptorHealth = null;
-
     public GameObject upgradeEquippedText = null;
-
-    [SerializeField] private GameObject exclamationMark = null;
+    [SerializeField] private Image trashIcon;
+    [SerializeField] private Sprite[] trashSprites;
 
     [SerializeField] private GameObject storeButton = null;
     [SerializeField] private GameObject storeUI = null;
     [SerializeField] private GameObject UIInactiveWhileInStore = null;
-
-    [SerializeField] private GameObject upgradesPanel = null;
 
     [Header("Mobile UI")]
     [SerializeField] private TextMeshProUGUI tweetText = null;
@@ -55,7 +49,6 @@ public class UIManager : MonoBehaviour
 
     private void Start()
     {
-        trashGenerator = FindObjectOfType<TrashGenerator>();
         playerController = FindObjectOfType<PlayerController>();
         playerStats = FindObjectOfType<PlayerStats>();
         playerSettings = FindObjectOfType<PlayerSettings>();
@@ -182,6 +175,11 @@ public class UIManager : MonoBehaviour
         progressBar.SetActive(true);
         pickupSlider.value = progress;
     }
+    public void hideProgressbar()
+    {
+        pickupSlider.value = 0;
+        progressBar.SetActive(false);
+    }
 
     public void showInterceptorBars(int selectedInterceptor, float healthValue, float trashValue)
     {
@@ -205,52 +203,24 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    public void hideProgressbar()
+    public void changeTrashIcon(float capacityFilled)
     {
-        pickupSlider.value = 0;
-        progressBar.SetActive(false);
-    }
+        capacityFilled *= 100;
 
-    public void pauseGameWrapper()
-    {
-        StartCoroutine(pauseGame());
-    }
+        if (capacityFilled < 50)
+            trashIcon.sprite = trashSprites[0];
 
-    public IEnumerator pauseGame()
-    {
-        animator.SetTrigger("Pause");
+        if (capacityFilled >= 50 && capacityFilled < 99)
+            trashIcon.sprite = trashSprites[1];
 
-        yield return new WaitForSeconds(0.1f);
-        Time.timeScale = 0.1f;
+        if (capacityFilled == 100)
+            trashIcon.sprite = trashSprites[2];
 
-        yield break;
-    }
-
-    public void resumeGameWrapper()
-    {
-        StartCoroutine(resumeGame());
-    }
-
-    public IEnumerator resumeGame()
-    {
-        animator.SetTrigger("Resume");
-        Time.timeScale = 1;
-
-        yield break;
+        Debug.Log(capacityFilled);
     }
 
     public void handleInterceptorExclamation(bool active)
     {
-        exclamationMark.SetActive(active);
-    }
-
-    public void quitGame()
-    {
-        SceneManager.LoadScene(0);
-    }
-
-    public void donateButton()
-    {
-        Application.OpenURL("https://theoceancleanup.com/donate/");
+        //exclamationMark.SetActive(active);
     }
 }

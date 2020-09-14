@@ -47,7 +47,6 @@ MonoBehaviour:
   pooledObjects: []
   spawningPositions: []
   trashParent: {fileID: 0}
-  target: {fileID: 0}
 --- !u!114 &96876271314338793
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -61,15 +60,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   trashSpawnRate: 0.2
-  spawnRange: 20
+  spawnRange: 40
   trashLifeTime: 1
   minDistanceToOtherTrash: 4
-  amountToPool: 30
+  amountToPool: 15
   trashPrefabs:
-  - {fileID: 9019781613249108356, guid: 05fa003c7500d56479dd4cd496bb44d9, type: 3}
-  - {fileID: 5461603692002798749, guid: 701d6e3e0fb716e43b6afd02cbc93e27, type: 3}
-  - {fileID: 7473797492082407829, guid: c1eebad4ebea1b34b8efb3e7f23e44c5, type: 3}
-  - {fileID: 2309551659929792177, guid: 7db6014ce5ecfe947a6c4c5bd39e8670, type: 3}
-  - {fileID: 4523649313509241545, guid: 8421951a54ba5aa42b3d51dea6ea24e2, type: 3}
-  - {fileID: 6670810942312790554, guid: 11c03c78fda94bd4a8b7a4c0f4a20164, type: 3}
-  floatToTarget: 1
+  - {fileID: 2793752011410686035, guid: e0d77000139594d4c8169c70b868239b, type: 3}
+  floatToTarget: 0

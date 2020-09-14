@@ -10,14 +10,10 @@ public class FishSettings : MonoBehaviour
     public int randomDirectionRange = 10;
     public float timeBeforeFindNewDirection = 0;
 
-    public int minNewDirTime;
-    public int maxNewDirTime;
+    [Range(1, 5)]
+    public float minNewDirTime;
+    [Range(6, 10)]
+    public float maxNewDirTime;
 
     #endregion
-
-    private void OnDrawGizmos()
-    {
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, randomDirectionRange);
-    }
 }

@@ -11,7 +11,7 @@ public class FishController : MonoBehaviour
 
     private int newAction = 0;
     private float timer;
-    private int findNewDirection = 0;
+    private float findNewDirection = 0;
 
     private void Start()
     {

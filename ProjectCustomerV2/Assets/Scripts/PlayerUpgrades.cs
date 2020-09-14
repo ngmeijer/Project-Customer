@@ -53,7 +53,7 @@ public class PlayerUpgrades : MonoBehaviour
 
                             break;
                         case 1:
-                            //Fishnet
+                            //Fishnet = pickup speed upgradeD
                             unlockedSecondUpgrade = true;
                             secondUpgrade.SetActive(true);
                             playerSettings.pickupTime = newPickupSpeed;

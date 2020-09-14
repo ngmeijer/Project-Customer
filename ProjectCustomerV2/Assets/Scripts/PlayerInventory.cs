@@ -12,8 +12,7 @@ public class PlayerInventory : MonoBehaviour
 
     public float progress;
     [SerializeField] private float timePresent = 0;
-    private TrashController instance;
-    private Coroutine pickupCoroutine;
+    [SerializeField] private Material arrowMaterial = null;
 
     private void Start()
     {
@@ -22,6 +21,8 @@ public class PlayerInventory : MonoBehaviour
         playerController = GetComponent<PlayerController>();
         uiManager = FindObjectOfType<UIManager>();
         achievementTracker = FindObjectOfType<AchievementTracker>();
+
+        changeArrowColour(playerStats.trashAmount / playerSettings.maxCapacity);
     }
 
     private void OnTriggerStay(Collider other)
@@ -37,17 +38,20 @@ public class PlayerInventory : MonoBehaviour
 
                     uiManager.showProgressBar(progress);
 
-                    //playerController.enabled = false;
-
                     if (progress >= 1)
                     {
-                        //if (playerSettings.lockMovementWhileTrashing)
-                        //    playerController.enabled = true;
                         achievementTracker.newTrashCollectedRecord(playerSettings.trashValue);
                         playerStats.trashAmount += playerSettings.trashValue;
+
+                        float capacityFilled = checkPlayerCapacity();
+                        changeArrowColour(capacityFilled);
+
+                        uiManager.changeTrashIcon(capacityFilled);
+
                         other.gameObject.SetActive(false);
                         uiManager.hideProgressbar();
                         timePresent = 0;
+
                     }
 
                     uiManager.updateStats(uiManager.trashCounter, (int)playerStats.trashAmount, false, true);
@@ -76,6 +80,28 @@ public class PlayerInventory : MonoBehaviour
         {
             uiManager.hideProgressbar();
             timePresent = 0;
+        }
+    }
+
+    private float checkPlayerCapacity()
+    {
+        float capacityFilled = playerStats.trashAmount / playerSettings.maxCapacity;
+
+        return capacityFilled;
+    }
+
+    public void changeArrowColour(float capacityFilled)
+    {
+        if (capacityFilled < 0.5)
+        {
+            float colourChange = capacityFilled * 2;
+            arrowMaterial.color = Color.Lerp(Color.green, Color.yellow, colourChange);
+            arrowMaterial.SetColor("_EmissionColor", Color.Lerp(Color.green, Color.yellow, colourChange));
+        }
+        else if (capacityFilled >= 0.5)
+        {
+            arrowMaterial.color = Color.Lerp(Color.yellow, Color.red, capacityFilled);
+            arrowMaterial.SetColor("_EmissionColor", Color.Lerp(Color.yellow, Color.red, capacityFilled));
         }
     }
 }

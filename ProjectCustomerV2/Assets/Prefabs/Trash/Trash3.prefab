@@ -93,6 +93,7 @@ GameObject:
   - component: {fileID: 403401036503927955}
   - component: {fileID: 7835607148262890953}
   - component: {fileID: -8343376465220326474}
+  - component: {fileID: 1072790879}
   m_Layer: 0
   m_Name: Trash3
   m_TagString: Trash
@@ -107,7 +108,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6641693307846303706}
-  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 59.136856, y: 1.7311766, z: -43.360275}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -165,3 +166,22 @@ MonoBehaviour:
   dissolveShader: {fileID: 0}
   target: {fileID: 4153484474799502526, guid: 8873d0f29c6428544af1068e1196dca5, type: 3}
   floatSpeed: 5
+--- !u!95 &1072790879
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6641693307846303706}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 8988b6967f8cc6f448e968fd1d0005fc, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
