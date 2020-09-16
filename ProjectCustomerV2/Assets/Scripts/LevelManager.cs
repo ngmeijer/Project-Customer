@@ -15,7 +15,8 @@ public class LevelManager : MonoBehaviour
     {
         timeTracker = FindObjectOfType<TimeTracker>();
 
-        preloadScene();
+        if (SceneManager.GetActiveScene().buildIndex == 1)
+            preloadScene();
     }
 
     private void preloadScene()

@@ -16,7 +16,6 @@ public class BaseUpgradeController : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            uiManager.activateStoreButton();
             uiManager.handleShipFullNotif(false);
         }
     }

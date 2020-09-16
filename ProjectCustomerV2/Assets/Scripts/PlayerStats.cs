@@ -23,15 +23,15 @@ public class PlayerStats : MonoBehaviour
     #region Variables
 
     public float trashAmount = 0;
-    public int money = 0;
-    public int supporters = 0;
-    public int totalTrashCollected = 0;
+    public float money = 0;
+    public float supporters = 0;
+    public float totalTrashCollected = 0;
 
     #endregion
 
-    public int calculateMoney(int rewardedMoney)
+    public float calculateMoney(int rewardedMoney)
     {
-        money += (int)rewardedMoney;
+        money += rewardedMoney;
 
         return money;
     }

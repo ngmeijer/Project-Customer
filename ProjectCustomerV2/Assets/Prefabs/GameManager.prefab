@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 3575577008811750635}
   - component: {fileID: 3575577008811750636}
   - component: {fileID: 3575577008811750637}
+  - component: {fileID: 1842719446}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -46,10 +47,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee2aee5e9e95bde41909f0dc8254b092, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  trashRecords: 1900000064000000f4010000e8030000
-  shipsRecord: 0
-  upgradeRecord: 0
-  levelRecord: 0
+  trashRecords:
+  - 25
+  - 100
+  - 500
+  - 1000
+  trash1Progress: {fileID: 0}
+  trash2Progress: {fileID: 0}
+  trash3Progress: {fileID: 0}
+  trash4Progress: {fileID: 0}
 --- !u!114 &3575577008811750635
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -62,6 +68,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 93c61c52b94ba5248b49218b038ad1b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  timeForNewLevel: 180
 --- !u!114 &3575577008811750636
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -74,8 +81,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16906a7997b490b4298095068537f2e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  newSupporterInterval: 1
+  newSupporterInterval: 5
   amountOfNewSupporters: 10
+  moneyPerSupporter: 0.5
 --- !u!114 &3575577008811750637
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -89,3 +97,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timer: 0
+  startTime: 1
+--- !u!114 &1842719446
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3575577008811750632}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b3d462084310ab44aa8aac0b6857b78e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  positiveTweet:
+  - You're doing very well! The sealife is quite grateful :)
+  - Keep up the good work! Keep in that you can exchange trash for money.. and use
+    that money for handy upgrades!
+  - I am amazed that you're able to collect so much trash!
+  negativeTweet: []
+  newPostTreshhold: 100

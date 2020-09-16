@@ -16,7 +16,7 @@ public class CameraController : MonoBehaviour
 
     }
 
-    private void Update()
+    private void LateUpdate()
     {
         scrollValue = Input.GetAxis("Mouse ScrollWheel");
 
@@ -78,13 +78,6 @@ public class CameraController : MonoBehaviour
             cameraSettings.offset.y += scrollValue * -cameraSettings.scrollSpeed
                                     * cameraSettings.scrollMultiplier * Time.deltaTime;
         }
-        else if (cameraSettings.offset.y < cameraSettings.minCameraHeight)
-        {
-            cameraSettings.offset.y = cameraSettings.minCameraHeight + 0.001f;
-        }
-        else if (cameraSettings.offset.y > cameraSettings.maxCameraHeight)
-        {
-            cameraSettings.offset.y = cameraSettings.maxCameraHeight - 0.001f;
-        }
+        cameraSettings.offset.y = Mathf.Clamp(cameraSettings.offset.y, cameraSettings.minCameraHeight, cameraSettings.maxCameraHeight);
     }
 }

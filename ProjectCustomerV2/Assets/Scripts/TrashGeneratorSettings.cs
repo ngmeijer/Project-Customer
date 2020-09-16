@@ -11,8 +11,6 @@ public class TrashGeneratorSettings : MonoBehaviour
 
     public float trashLifeTime = 10f;
 
-    public float minDistanceToOtherTrash = 4f;
-
     public int amountToPool = 10;
 
     public List<GameObject> trashPrefabs = new List<GameObject>();

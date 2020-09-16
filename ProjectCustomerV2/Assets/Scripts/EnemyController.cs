@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
@@ -37,13 +38,13 @@ public class EnemyController : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player").transform;
 
         interceptor = GameObject.FindGameObjectsWithTag("Interceptor");
-        interceptorIndex = Random.Range(0, interceptor.Length);
+        interceptorIndex = UnityEngine.Random.Range(0, interceptor.Length);
         interceptorTarget = interceptor[interceptorIndex].transform;
 
         enemyAgent.SetDestination(interceptorTarget.position);
         interceptorController = interceptor[interceptorIndex].GetComponentInParent<InterceptorController>();
 
-        int randomFleePoint = Random.Range(0, enemySettings.fleePoints.Length);
+        int randomFleePoint = UnityEngine.Random.Range(0, enemySettings.fleePoints.Length);
         fleePoint = enemySettings.fleePoints[randomFleePoint];
     }
 
@@ -68,8 +69,8 @@ public class EnemyController : MonoBehaviour
         {
             newAction = 1;
         }
-        
-        if ((distanceToPlayer > enemySettings.maxAvoidDistance) && (distanceToInterceptor > enemySettings.attackRange))
+
+        if ((distanceToFleePoint <= 5))
         {
             newAction = 2;
         }
@@ -91,12 +92,11 @@ public class EnemyController : MonoBehaviour
             case 1:
                 //Flee
                 enemyAgent.SetDestination(fleePoint.position);
-                foundFleePoint = true;
                 break;
             case 2:
                 //Retarget interceptor
                 enemyAgent.SetDestination(interceptorTarget.position);
-                int randomFleePoint = Random.Range(0, enemySettings.fleePoints.Length);
+                int randomFleePoint = UnityEngine.Random.Range(0, enemySettings.fleePoints.Length);
                 fleePoint = enemySettings.fleePoints[randomFleePoint];
                 break;
         }
@@ -108,13 +108,17 @@ public class EnemyController : MonoBehaviour
     {
         interceptorController.takeDamage(enemySettings.damage);
         timeToAttack = 0;
+        if(!interceptorController.gameObject.activeInHierarchy)
+        {
+            newAction = 2;
+        }
     }
 
     private void setNewDestination()
     {
         timeBeforeFindNewDirection = 0;
 
-        Vector3 randomDirection = Random.insideUnitSphere * enemySettings.randomDirectionRange;
+        Vector3 randomDirection = UnityEngine.Random.insideUnitSphere * enemySettings.randomDirectionRange;
 
         randomDirection += transform.position;
         NavMeshHit hit;

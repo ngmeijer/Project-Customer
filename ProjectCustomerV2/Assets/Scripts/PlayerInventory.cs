@@ -40,7 +40,8 @@ public class PlayerInventory : MonoBehaviour
 
                     if (progress >= 1)
                     {
-                        achievementTracker.newTrashCollectedRecord(playerSettings.trashValue);
+                        playerStats.totalTrashCollected += playerSettings.trashValue;
+                        achievementTracker.newTrashCollectedRecord();
                         playerStats.trashAmount += playerSettings.trashValue;
 
                         float capacityFilled = checkPlayerCapacity();

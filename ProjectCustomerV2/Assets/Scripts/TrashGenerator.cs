@@ -72,24 +72,6 @@ public class TrashGenerator : MonoBehaviour
                 trashInstance.transform.rotation = Quaternion.identity;
                 trashInstance.SetActive(true);
             }
-
-            //spawningPositions.Add(point);
-
-            //for (int i = 0; i < spawningPositions.Count; i++)
-            //{
-            //    float distanceToOtherPoint = Vector3.Distance(point, spawningPositions[i]);
-
-            //    if (distanceToOtherPoint >= trashGeneratorSettings.minDistanceToOtherTrash)
-            //    {
-            //        GameObject trashInstance = GetPooledObject();
-            //        if (trashInstance != null)
-            //        {
-            //            trashInstance.transform.position = point;
-            //            trashInstance.transform.rotation = Quaternion.identity;
-            //            trashInstance.SetActive(true);
-            //        }
-            //    }
-            //}
         }
         trashTimer = 0;
     }

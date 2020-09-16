@@ -10,6 +10,7 @@ public class PauseMenu : MonoBehaviour
     private Animator animator = null;
     [SerializeField] private float soundVolume = 0;
     [SerializeField] private GameObject aboutUsHolder = null;
+    [SerializeField] private GameObject achievementsHolder = null;
 
     private void Start()
     {
@@ -26,7 +27,7 @@ public class PauseMenu : MonoBehaviour
         animator.SetTrigger("Pause");
 
         yield return new WaitForSeconds(0.1f);
-        Time.timeScale = 0.1f;
+        Time.timeScale = 0f;
 
         yield break;
     }
@@ -52,6 +53,11 @@ public class PauseMenu : MonoBehaviour
     public void unmuteAllAudio()
     {
         audioMixer.SetFloat("VolumeMaster", soundVolume);
+    }
+
+    public void achievementsActive()
+    {
+        animator.SetTrigger("Achievements");
     }
 
     public void aboutUs()

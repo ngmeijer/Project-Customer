@@ -24,7 +24,7 @@ public class ScoreBoard : MonoBehaviour
         animator = GetComponent<Animator>();
     }
 
-    public void handleScoreboard(bool activate, int trashScore)
+    public void handleScoreboard(bool activate, float trashScore)
     {
         scoreBoard.SetActive(activate);
         levelUI.SetActive(false);
@@ -36,7 +36,7 @@ public class ScoreBoard : MonoBehaviour
         checkUpgrades();
     }
 
-    public void updateTrashScore(int score)
+    public void updateTrashScore(float score)
     {
         trashScore.text = score.ToString();
     }

@@ -27,7 +27,7 @@ public class InterceptorController : MonoBehaviour
         supporterTracker = FindObjectOfType<SupporterTracker>();
         interceptorSettings = GetComponent<InterceptorSettings>();
 
-        trackCapacity(interceptorSettings.currentTrashAmount);
+        trackCapacity();
         //Base colour
         panelMaterial.SetColor("Color_B5409964", interceptorSettings.lightColours[0]);
         //Emission colour
@@ -50,7 +50,7 @@ public class InterceptorController : MonoBehaviour
             if (interceptorSettings.currentTrashAmount < interceptorSettings.maxTrashAmount)
             {
                 interceptorSettings.currentTrashAmount += playerSettings.trashValue;
-                trackCapacity(interceptorSettings.currentTrashAmount);
+                trackCapacity();
                 other.gameObject.SetActive(false);
             }
             else
@@ -73,7 +73,11 @@ public class InterceptorController : MonoBehaviour
     {
         if (interceptorSettings.health > 0)
             interceptorSettings.health -= damage;
-        else interceptorSettings.health = 0;
+        else
+        {
+            interceptorSettings.health = 0;
+            
+        }
     }
 
     public void applyUpgradeMaterial()
@@ -82,7 +86,7 @@ public class InterceptorController : MonoBehaviour
         renderer.material = upgradedMaterial;
     }
 
-    private void trackCapacity(float trashAmount)
+    private void trackCapacity()
     {
         float percentFilled = interceptorSettings.currentTrashAmount / interceptorSettings.maxTrashAmount;
 
@@ -151,7 +155,7 @@ public class InterceptorController : MonoBehaviour
                 interceptorSettings.currentTrashAmount = 0;
 
             uiManager.showInterceptorBars(selectedInterceptor, interceptorSettings.health, interceptorSettings.currentTrashAmount);
-            trackCapacity(interceptorSettings.currentTrashAmount);
+            trackCapacity();
         }
     }
 

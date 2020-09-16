@@ -68,17 +68,11 @@ public class UIManager : MonoBehaviour
         animator.SetTrigger("ShowTweet");
     }
 
-    public void activateStoreButton()
-    {
-        storeButton.SetActive(true);
-    }
-
     public void handleStoreOnClick()
     {
         UIInactiveWhileInStore.SetActive(false);
         playerController.enabled = false;
         storeUI.SetActive(true);
-        storeButton.SetActive(false);
     }
 
     public void handleStoreOnExit()
@@ -86,7 +80,6 @@ public class UIManager : MonoBehaviour
         UIInactiveWhileInStore.SetActive(true);
         playerController.enabled = true;
         storeUI.SetActive(false);
-        storeButton.SetActive(true);
     }
 
     public IEnumerator unlockedUpgradeWarning()
@@ -134,17 +127,18 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    public void includeMaxValueText(TextMeshProUGUI maxValueText, int maxValue)
+    public void includeMaxValueText(TextMeshProUGUI maxValueText, float maxValue)
     {
         maxValueText.enabled = true;
         maxValueText.text = "/ " + maxValue.ToString();
     }
 
-    public void updateSupporters(TextMeshProUGUI counter, int counterAmount)
+    public void updateSupporters(TextMeshProUGUI counter, float counterAmount)
     {
-        int totalSupporters = playerStats.supporters;
+        float totalSupporters = playerStats.supporters;
 
         playerStats.supporters = counterAmount;
+
         counter.text = totalSupporters.ToString();
     }
 
@@ -215,8 +209,6 @@ public class UIManager : MonoBehaviour
 
         if (capacityFilled == 100)
             trashIcon.sprite = trashSprites[2];
-
-        Debug.Log(capacityFilled);
     }
 
     public void handleInterceptorExclamation(bool active)

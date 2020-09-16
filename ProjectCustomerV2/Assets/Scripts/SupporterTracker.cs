@@ -7,8 +7,9 @@ public class SupporterTracker : MonoBehaviour
     private PlayerStats playerStats = null;
     private SocialMedia socialMedia = null;
     private UIManager uiManager = null;
-    [SerializeField] private float newSupporterInterval = 1f;
+    [SerializeField] private float newSupporterInterval = 0.1f;
     [SerializeField] private int amountOfNewSupporters = 10;
+    [SerializeField] private float moneyPerSupporter = 0.5f;
 
     private string tweet;
 
@@ -32,24 +33,12 @@ public class SupporterTracker : MonoBehaviour
 
         if (timer >= newSupporterInterval)
         {
-            calculateSupporters(amountOfNewSupporters);
-            uiManager.updateSupporters(uiManager.supportersCounter, amountOfNewSupporters);
+            playerStats.supporters += amountOfNewSupporters;
+            playerStats.money += (moneyPerSupporter * playerStats.supporters);
+            uiManager.updateStats(uiManager.moneyCounter, playerStats.money, false, false);
+            uiManager.updateSupporters(uiManager.supportersCounter, playerStats.supporters);
             timer = 0;
         }
-    }
-
-    public int calculateSupporters(int supportersGained)
-    {
-        int supporters = playerStats.supporters += supportersGained;
-
-        if(supporters >= socialMedia.newPostTreshhold)
-        {
-            tweet = socialMedia.sendOutPositiveTweet();
-
-            uiManager.showTweet(tweet);
-        }
-
-        return supporters;
     }
 
     public void calculateSupportersOnTrashDep(int trashAmount)

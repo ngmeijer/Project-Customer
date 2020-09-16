@@ -94,7 +94,7 @@ public class StoreManager : MonoBehaviour
         uiManager.updateStats(uiManager.moneyCounter, playerStats.money, false, false);
         uiManager.changeTrashIcon(0);
 
-        playerInventory.changeArrowColour(playerStats.trashAmount / playerSettings.maxCapacity);
+        playerInventory.changeArrowColour(0);
 
         //supporterTracker.calculateSupportersOnTrashDep((int)playerStats.trashAmount);
         //uiManager.updateSupporters(uiManager.supportersCounter, playerStats.supporters);

@@ -6,19 +6,21 @@ using UnityEngine.AI;
 public class TrashController : MonoBehaviour
 {
     [SerializeField] private Material dissolveShader = null;
-
     private TrashGeneratorSettings trashGeneratorSettings = null;
-
     private NavMeshAgent trashAgent = null;
-
     public GameObject target = null;
-
     [SerializeField] private float floatSpeed = 5;
+    private Animator animator = null;
+    private float timer = 0;
+    [SerializeField] private float timeToDespawn = 10f;
+    [SerializeField] private float timeToWarn = 5f;
+    public bool shouldDisable = false;
+    [SerializeField] GameObject canvas = null;
 
     private void OnEnable()
     {
         trashGeneratorSettings = FindObjectOfType<TrashGeneratorSettings>();
-
+        animator = GetComponent<Animator>();
         trashAgent = GetComponent<NavMeshAgent>();
 
         trashAgent.speed = 5;
@@ -30,6 +32,12 @@ public class TrashController : MonoBehaviour
         else trashAgent.enabled = true;
     }
 
+    private void Update()
+    {
+        if (!shouldDisable) return;
+        else StartCoroutine(disableObject());
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("EndPoint"))
@@ -38,14 +46,28 @@ public class TrashController : MonoBehaviour
         }
     }
 
-    //public IEnumerator handleDeactivation(float pickupTime)
-    //{
-    //    //GetComponentInChildren<MeshRenderer>().material = dissolveShader;
+    private IEnumerator disableObject()
+    {
+        timer += Time.deltaTime;
 
-    //    yield return new WaitForSeconds(pickupTime);
+        if (timer >= timeToWarn)
+        {
+            canvas.SetActive(true);
+        }
 
-    //    gameObject.SetActive(false);
+        if (timer >= timeToDespawn)
+        {
+            animator.SetTrigger("Sink");
+            timer = 0;
+            yield return new WaitForSeconds(1);
+            this.gameObject.SetActive(false);
+        }
 
-    //    yield break;
-    //}
+        yield break;
+    }
+
+    private void OnDisable()
+    {
+        canvas.SetActive(false);
+    }
 }

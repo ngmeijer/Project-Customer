@@ -19,8 +19,8 @@ public class PlayerUpgrades : MonoBehaviour
     public bool unlockedSecondUpgrade = false;
     public bool unlockedThirdUpgrade = false;
 
-    [SerializeField] private int newCapacity = 300;
-    [SerializeField] private int newMoveSpeed = 10;
+    [SerializeField] private int newCapacity = 400;
+    [SerializeField] private int newMoveSpeed = 25;
     [SerializeField] private float newPickupSpeed = 0.5f;
 
     private void Start()
@@ -81,35 +81,13 @@ public class PlayerUpgrades : MonoBehaviour
                             interceptorController = FindObjectsOfType<InterceptorController>();
                             for (int i = 0; i < interceptorController.Length; i++)
                                 interceptorController[i].applyUpgradeMaterial();
-                            playerSettings.maxCapacity = newCapacity;
                             break;
                         case 2:
                             //Box = Capacity upgrade
                             unlockedThirdUpgrade = true;
                             thirdUpgrade.SetActive(true);
                             playerSettings.maxCapacity = newCapacity;
-                            break;
-                    }
-                    break;
-                case 2:
-                    switch (selectedUpgrade)
-                    {
-                        case 0:
-                            break;
-                        case 1:
-                            break;
-                        case 2:
-                            break;
-                    }
-                    break;
-                case 3:
-                    switch (selectedUpgrade)
-                    {
-                        case 0:
-                            break;
-                        case 1:
-                            break;
-                        case 2:
+                            uiManager.includeMaxValueText(uiManager.maxTrashCounter, playerSettings.maxCapacity);
                             break;
                     }
                     break;
