@@ -92,7 +92,7 @@ Transform:
   - {fileID: 6322385410499308300}
   m_Father: {fileID: 3262679648835845616}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 17.4761, z: 0}
 --- !u!1 &2110887236211521671
 GameObject:
   m_ObjectHideFlags: 0
@@ -117,7 +117,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2110887236211521671}
   m_LocalRotation: {x: -0, y: -0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: -0, y: -16.142258, z: 166.24635}
+  m_LocalPosition: {x: -0, y: -16, z: 166.24635}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4460447474965735965}
@@ -134,8 +134,10 @@ GameObject:
   m_Component:
   - component: {fileID: 3395723928609545263}
   - component: {fileID: 2930349769345319662}
+  - component: {fileID: 325252725}
+  - component: {fileID: 325252726}
   m_Layer: 0
-  m_Name: FishNR1SwimmingAnimationFinal
+  m_Name: YellowFish
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -148,9 +150,9 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2624429008982410901}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 6.6595545, y: 1.563, z: -9.09565}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_Children:
   - {fileID: 8601214659208909004}
   - {fileID: 7329815365718572932}
@@ -176,6 +178,35 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &325252725
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2624429008982410901}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9558e4c534093d24eb91a0f3ded7228b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  randomDirectionRange: 20
+  timeBeforeFindNewDirection: 0
+  minNewDirTime: 4
+  maxNewDirTime: 10
+--- !u!114 &325252726
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2624429008982410901}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 57d2a88c07f217e4e8be6a09587279d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  findNewDirection: 0
 --- !u!1 &4485403705336558135
 GameObject:
   m_ObjectHideFlags: 0
@@ -261,14 +292,14 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5678100332603286239}
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0, y: 1.2169603, z: 8.5265126e-16}
+  m_LocalPosition: {x: -0, y: -1.2, z: 8.5265126e-16}
   m_LocalScale: {x: 0.01, y: 0.01, z: 0.01}
   m_Children:
   - {fileID: 8429033405822773628}
   - {fileID: 7901644626734728545}
   m_Father: {fileID: 3395723928609545263}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -0, y: 0, z: 0}
 --- !u!1 &6406869341270151389
 GameObject:
   m_ObjectHideFlags: 0
@@ -298,7 +329,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 8429033405822773628}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 17.476099, z: 0}
 --- !u!1 &7752094418586804650
 GameObject:
   m_ObjectHideFlags: 0
@@ -325,7 +356,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7752094418586804650}
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: -150, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 8601214659208909004}
@@ -350,7 +381,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 1f3f6cab4d876dd4e92efe3f6b94bbc1, type: 2}
+  - {fileID: 2100000, guid: c069812c51a4a294294695a9484e2cac, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -426,7 +457,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9020091937525970782}
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0, y: -16.213633, z: -8.526513e-14}
+  m_LocalPosition: {x: -0, y: 0, z: -8.526513e-14}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4244998166367284656}

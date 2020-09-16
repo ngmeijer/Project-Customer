@@ -8,6 +8,7 @@ public class InterceptorSettings : MonoBehaviour
 
     public float health = 100;
     public float maxHealth = 100;
+    public float newMaxHealth = 200;
 
     public float currentTrashAmount = 0;
     public float maxTrashAmount = 200;

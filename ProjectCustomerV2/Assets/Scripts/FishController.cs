@@ -9,9 +9,9 @@ public class FishController : MonoBehaviour
     private FishSettings fishSettings = null;
     private Animator animator = null;
 
-    private int newAction = 0;
     private float timer;
-    private float findNewDirection = 0;
+    [SerializeField] private float findNewDirection = 0;
+    private Vector3 point;
 
     private void Start()
     {
@@ -27,7 +27,7 @@ public class FishController : MonoBehaviour
     {
         timer += Time.deltaTime;
 
-        if (timer >= findNewDirection)
+        if (timer >= findNewDirection || transform.position == point)
         {
             generatePosition();
             animator.SetTrigger("Jump");
@@ -37,14 +37,13 @@ public class FishController : MonoBehaviour
 
     private void generatePosition()
     {
-        Vector3 point;
-
         if (RandomPoint(transform.position, fishSettings.randomDirectionRange, out point))
         {
             fishAgent.SetDestination(point);
         }
     }
-    bool RandomPoint(Vector3 center, float range, out Vector3 result)
+
+    private bool RandomPoint(Vector3 center, float range, out Vector3 result)
     {
         for (int i = 0; i < 50; i++)
         {

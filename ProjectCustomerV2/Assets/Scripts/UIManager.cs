@@ -2,7 +2,6 @@
 using System.Collections;
 using TMPro;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
@@ -173,28 +172,6 @@ public class UIManager : MonoBehaviour
     {
         pickupSlider.value = 0;
         progressBar.SetActive(false);
-    }
-
-    public void showInterceptorBars(int selectedInterceptor, float healthValue, float trashValue)
-    {
-        switch (selectedInterceptor)
-        {
-            case 0:
-                interceptor1Canvas.SetActive(true);
-                healthSlider1.value = healthValue;
-                trashSlider1.value = trashValue;
-                break;
-            case 1:
-                interceptor2Canvas.SetActive(true);
-                healthSlider2.value = healthValue;
-                trashSlider2.value = trashValue;
-                break;
-            case 2:
-                interceptor3Canvas.SetActive(true);
-                healthSlider3.value = healthValue;
-                trashSlider3.value = trashValue;
-                break;
-        }
     }
 
     public void changeTrashIcon(float capacityFilled)

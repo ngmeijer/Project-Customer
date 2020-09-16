@@ -10,6 +10,8 @@ public class PlayerInventory : MonoBehaviour
     private UIManager uiManager = null;
     private AchievementTracker achievementTracker = null;
 
+    [SerializeField] private AudioSource trashSound = null;
+
     public float progress;
     [SerializeField] private float timePresent = 0;
     [SerializeField] private Material arrowMaterial = null;
@@ -40,6 +42,7 @@ public class PlayerInventory : MonoBehaviour
 
                     if (progress >= 1)
                     {
+                        trashSound.Play();
                         playerStats.totalTrashCollected += playerSettings.trashValue;
                         achievementTracker.newTrashCollectedRecord();
                         playerStats.trashAmount += playerSettings.trashValue;
@@ -52,7 +55,6 @@ public class PlayerInventory : MonoBehaviour
                         other.gameObject.SetActive(false);
                         uiManager.hideProgressbar();
                         timePresent = 0;
-
                     }
 
                     uiManager.updateStats(uiManager.trashCounter, (int)playerStats.trashAmount, false, true);

@@ -2,17 +2,24 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class InterceptorController : MonoBehaviour
 {
     private UIManager uiManager = null;
     private PlayerStats playerStats = null;
     private PlayerSettings playerSettings = null;
-    private SupporterTracker supporterTracker = null;
     private InterceptorSettings interceptorSettings = null;
 
     [SerializeField] private Material panelMaterial = null;
     [SerializeField] private Material upgradedMaterial = null;
+
+    [SerializeField] private GameObject canvas = null;
+    [SerializeField] private GameObject bars = null;
+    [SerializeField] private GameObject buttons = null;
+    [SerializeField] private GameObject exclamationMark = null;
+    [SerializeField] private Slider trashSlider = null;
+    [SerializeField] private Slider healthSlider = null;
 
     [SerializeField] private GameObject objectToChangeMat;
 
@@ -24,7 +31,6 @@ public class InterceptorController : MonoBehaviour
         uiManager = FindObjectOfType<UIManager>();
         playerStats = FindObjectOfType<PlayerStats>();
         playerSettings = FindObjectOfType<PlayerSettings>();
-        supporterTracker = FindObjectOfType<SupporterTracker>();
         interceptorSettings = GetComponent<InterceptorSettings>();
 
         trackCapacity();
@@ -38,11 +44,7 @@ public class InterceptorController : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            float healthInPercentage = interceptorSettings.health / interceptorSettings.maxHealth;
-            uiManager.showInterceptorBars(selectedInterceptor, interceptorSettings.health, healthInPercentage);
-
-            float trashInPercentage = interceptorSettings.currentTrashAmount / interceptorSettings.maxTrashAmount;
-            uiManager.showInterceptorBars(selectedInterceptor, interceptorSettings.currentTrashAmount, trashInPercentage);
+            showInterceptorStats();
         }
 
         if (other.gameObject.CompareTag("Trash"))
@@ -76,14 +78,36 @@ public class InterceptorController : MonoBehaviour
         else
         {
             interceptorSettings.health = 0;
-            
+            showExclMark();
         }
+    }
+
+    public void showInterceptorStats()
+    {
+        float healthInPercentage = interceptorSettings.health / interceptorSettings.maxHealth;
+        float trashInPercentage = interceptorSettings.currentTrashAmount / interceptorSettings.maxTrashAmount;
+
+        canvas.SetActive(true);
+        bars.SetActive(true);
+        buttons.SetActive(true);
+        healthSlider.value = healthInPercentage;
+        trashSlider.value = trashInPercentage;
+    }
+
+    public void showExclMark()
+    {
+        canvas.SetActive(true);
+        bars.SetActive(false);
+        buttons.SetActive(false);
+        exclamationMark.SetActive(true);
     }
 
     public void applyUpgradeMaterial()
     {
         Renderer renderer = objectToChangeMat.GetComponent<MeshRenderer>();
         renderer.material = upgradedMaterial;
+
+        interceptorSettings.health = interceptorSettings.newMaxHealth;
     }
 
     private void trackCapacity()
@@ -154,7 +178,7 @@ public class InterceptorController : MonoBehaviour
             if (interceptorSettings.currentTrashAmount < 0)
                 interceptorSettings.currentTrashAmount = 0;
 
-            uiManager.showInterceptorBars(selectedInterceptor, interceptorSettings.health, interceptorSettings.currentTrashAmount);
+            showInterceptorStats();
             trackCapacity();
         }
     }
@@ -162,8 +186,7 @@ public class InterceptorController : MonoBehaviour
     public void repairInterceptor()
     {
         interceptorSettings.health = interceptorSettings.maxHealth;
-        uiManager.showInterceptorBars(selectedInterceptor, interceptorSettings.health, interceptorSettings.currentTrashAmount);
-        Debug.Log("trash amount: " + interceptorSettings.currentTrashAmount);
-        Debug.Log("health amount: " + interceptorSettings.health);
+        showInterceptorStats();
+        exclamationMark.SetActive(false);
     }
 }
