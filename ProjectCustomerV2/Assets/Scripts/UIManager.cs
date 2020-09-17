@@ -13,6 +13,9 @@ public class UIManager : MonoBehaviour
 
     private Animator animator = null;
 
+    [SerializeField] private Transform player = null;
+    [SerializeField] private Transform basePosition = null;
+
     [Header("Counters")]
     public TextMeshProUGUI trashCounter = null;
     public TextMeshProUGUI maxTrashCounter = null;
@@ -56,6 +59,7 @@ public class UIManager : MonoBehaviour
         animator = GetComponent<Animator>();
 
         includeMaxValueText(maxTrashCounter, (int)playerSettings.maxCapacity);
+        updateSupporters(supportersCounter, playerStats.supporters);
     }
 
     public void newTweet()
@@ -69,9 +73,14 @@ public class UIManager : MonoBehaviour
 
     public void handleStoreOnClick()
     {
-        UIInactiveWhileInStore.SetActive(false);
-        playerController.enabled = false;
-        storeUI.SetActive(true);
+        float distance = Vector3.Distance(player.transform.position, basePosition.transform.position);
+
+        if (distance <= 30)
+        {
+            UIInactiveWhileInStore.SetActive(false);
+            playerController.enabled = false;
+            storeUI.SetActive(true);
+        }
     }
 
     public void handleStoreOnExit()

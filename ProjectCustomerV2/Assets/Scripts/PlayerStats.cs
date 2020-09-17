@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Packages.Rider.Editor.Util;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -29,10 +30,20 @@ public class PlayerStats : MonoBehaviour
 
     #endregion
 
+    private void OnEnable()
+    {
+        supporters = StatsToSave.totalSupporters;
+    }
+
+    private void Update()
+    {
+        Debug.Log(StatsToSave.totalSupporters);
+    }
+
+
     public float calculateMoney(int rewardedMoney)
     {
         money += rewardedMoney;
-
         return money;
     }
 }

@@ -32,7 +32,8 @@ public class TimeTracker : MonoBehaviour
 
         if (timer >= levelManager.timeForNewLevel)
         {
-            scoreBoard.handleScoreboard(true, playerStats.totalTrashCollected);
+            if (scoreBoard != null)
+                scoreBoard.handleScoreboard(true, playerStats.totalTrashCollected);
         }
     }
 }

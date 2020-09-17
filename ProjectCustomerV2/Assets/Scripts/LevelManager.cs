@@ -6,17 +6,17 @@ using UnityEngine.UI;
 
 public class LevelManager : MonoBehaviour
 {
-    private TimeTracker timeTracker = null;
     private AsyncOperation async;
 
     public int timeForNewLevel = 300;
 
     void Start()
     {
-        timeTracker = FindObjectOfType<TimeTracker>();
+        if (SceneManager.GetActiveScene().buildIndex <= 3)
+            async = SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex + 1);
+        else async = SceneManager.LoadSceneAsync(0, LoadSceneMode.Single);
 
-        if (SceneManager.GetActiveScene().buildIndex == 1)
-            preloadScene();
+        preloadScene();
     }
 
     private void preloadScene()
@@ -26,7 +26,6 @@ public class LevelManager : MonoBehaviour
 
     private IEnumerator load()
     {
-        async = SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex + 1);
         async.allowSceneActivation = false;
 
         yield return async;
@@ -34,6 +33,7 @@ public class LevelManager : MonoBehaviour
 
     public void ActivateScene()
     {
+        Debug.Log(async);
         async.allowSceneActivation = true;
     }
 

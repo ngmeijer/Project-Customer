@@ -9,6 +9,7 @@ public class ScoreBoard : MonoBehaviour
     [SerializeField] private GameObject scoreBoard = null;
     [SerializeField] private TextMeshProUGUI trashScore = null;
     [SerializeField] private GameObject levelUI = null;
+    [SerializeField] private PlayerStats playerStats = null;
     private Animator animator = null;
 
     [SerializeField] private Toggle upgrade1;
@@ -24,8 +25,14 @@ public class ScoreBoard : MonoBehaviour
         animator = GetComponent<Animator>();
     }
 
+    private void OnEnable()
+    {
+        playerStats = FindObjectOfType<PlayerStats>();
+    }
+
     public void handleScoreboard(bool activate, float trashScore)
     {
+        StatsToSave.totalSupporters = playerStats.supporters;
         scoreBoard.SetActive(activate);
         levelUI.SetActive(false);
 
