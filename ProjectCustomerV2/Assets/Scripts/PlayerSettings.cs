@@ -8,6 +8,8 @@ public class PlayerSettings : MonoBehaviour
 
     private PlayerController playerController;
 
+    public static int supporterDecrement = 1;
+
     public float maxCapacity = 200;
     public int speed = 4;
 

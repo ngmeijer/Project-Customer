@@ -69,11 +69,6 @@ public class PlayerInventory : MonoBehaviour
                 uiManager.hideProgressbar();
                 timePresent = 0;
             }
-
-            if (playerStats.trashAmount >= playerSettings.maxCapacity)
-            {
-                //uiManager.handleShipFullNotif(true);
-            }
         }
     }
 

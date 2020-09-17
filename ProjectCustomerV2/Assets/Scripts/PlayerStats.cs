@@ -1,5 +1,4 @@
-﻿using Packages.Rider.Editor.Util;
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -28,18 +27,25 @@ public class PlayerStats : MonoBehaviour
     public float supporters = 0;
     public float totalTrashCollected = 0;
 
+    private UIManager uiManager = null;
+
     #endregion
 
     private void OnEnable()
     {
         supporters = StatsToSave.totalSupporters;
+        uiManager = FindObjectOfType<UIManager>();
     }
 
-    private void Update()
+    public void calculateSupporters(int supporterDelta)
     {
-        Debug.Log(StatsToSave.totalSupporters);
+        supporters += supporterDelta;
+        if (supporters < 0)
+        {
+            supporters = 0;
+        }
+        uiManager.updateSupporters(uiManager.supportersCounter, supporters);
     }
-
 
     public float calculateMoney(int rewardedMoney)
     {

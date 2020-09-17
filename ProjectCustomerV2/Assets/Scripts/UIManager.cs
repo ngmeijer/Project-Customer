@@ -145,8 +145,6 @@ public class UIManager : MonoBehaviour
     {
         float totalSupporters = playerStats.supporters;
 
-        playerStats.supporters = counterAmount;
-
         counter.text = totalSupporters.ToString();
     }
 

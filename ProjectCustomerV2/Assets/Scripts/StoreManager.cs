@@ -7,10 +7,8 @@ using UnityEngine;
 public class StoreManager : MonoBehaviour
 {
     private PlayerUpgrades playerUpgrades = null;
-    private PlayerSettings playerSettings = null;
     private PlayerStats playerStats = null;
     private PlayerInventory playerInventory = null;
-    private SupporterTracker supporterTracker = null;
     private UIManager uiManager = null;
     private StoreSettings storeSettings = null;
     private ScoreBoard scoreBoard = null;
@@ -24,10 +22,8 @@ public class StoreManager : MonoBehaviour
     {
         playerUpgrades = FindObjectOfType<PlayerUpgrades>();
         playerStats = FindObjectOfType<PlayerStats>();
-        playerSettings = FindObjectOfType<PlayerSettings>();
         playerInventory = FindObjectOfType<PlayerInventory>();
         scoreBoard = GetComponent<ScoreBoard>();
-        supporterTracker = FindObjectOfType<SupporterTracker>();
         uiManager = GetComponent<UIManager>();
         storeSettings = GetComponent<StoreSettings>();
 

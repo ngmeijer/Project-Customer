@@ -39,6 +39,6 @@ public class LevelManager : MonoBehaviour
 
     public void QuitGame()
     {
-        Application.Quit();
+        System.Diagnostics.Process.GetCurrentProcess().Kill();
     }
 }

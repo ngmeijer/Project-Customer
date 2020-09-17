@@ -5,7 +5,6 @@ using UnityEngine;
 public class SupporterTracker : MonoBehaviour
 {
     private PlayerStats playerStats = null;
-    private SocialMedia socialMedia = null;
     private UIManager uiManager = null;
     [SerializeField] private float newSupporterInterval = 0.1f;
     [SerializeField] private int amountOfNewSupporters = 10;
@@ -18,7 +17,6 @@ public class SupporterTracker : MonoBehaviour
     private void Start()
     {
         playerStats = FindObjectOfType<PlayerStats>();
-        socialMedia = GetComponent<SocialMedia>();
         uiManager = FindObjectOfType<UIManager>();
     }
 
@@ -33,7 +31,7 @@ public class SupporterTracker : MonoBehaviour
 
         if (timer >= newSupporterInterval)
         {
-            playerStats.supporters += amountOfNewSupporters;
+            playerStats.calculateSupporters(amountOfNewSupporters);
             playerStats.money += (moneyPerSupporter * playerStats.supporters);
             uiManager.updateStats(uiManager.moneyCounter, playerStats.money, false, false);
             uiManager.updateSupporters(uiManager.supportersCounter, playerStats.supporters);

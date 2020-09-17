@@ -6,12 +6,13 @@ using UnityEngine.AI;
 public class TrashController : MonoBehaviour
 {
     [SerializeField] private Material dissolveShader = null;
+    [SerializeField] private PlayerStats playerStats = null;
     private TrashGeneratorSettings trashGeneratorSettings = null;
     private NavMeshAgent trashAgent = null;
     public GameObject target = null;
     [SerializeField] private float floatSpeed = 5;
     private Animator animator = null;
-    private float timer = 0;
+    [SerializeField] private float timer = 0;
     [SerializeField] private float timeToDespawn = 10f;
     [SerializeField] private float timeToWarn = 5f;
     public bool shouldDisable = false;
@@ -22,6 +23,7 @@ public class TrashController : MonoBehaviour
         trashGeneratorSettings = FindObjectOfType<TrashGeneratorSettings>();
         animator = GetComponent<Animator>();
         trashAgent = GetComponent<NavMeshAgent>();
+        playerStats = FindObjectOfType<PlayerStats>();
 
         trashAgent.speed = 5;
 
@@ -42,6 +44,7 @@ public class TrashController : MonoBehaviour
     {
         if (other.gameObject.CompareTag("EndPoint"))
         {
+            playerStats.calculateSupporters(-PlayerSettings.supporterDecrement);
             this.gameObject.SetActive(false);
         }
     }
@@ -58,9 +61,11 @@ public class TrashController : MonoBehaviour
         if (timer >= timeToDespawn)
         {
             animator.SetTrigger("Sink");
-            timer = 0;
             yield return new WaitForSeconds(1);
+            playerStats.calculateSupporters(-PlayerSettings.supporterDecrement);
+            canvas.SetActive(false);
             this.gameObject.SetActive(false);
+            timer = 0;
         }
 
         yield break;
